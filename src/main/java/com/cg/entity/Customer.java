@@ -27,13 +27,19 @@ public class Customer {
 	
 	@Column(name="positionNumber")
 	private int positionNumber;
+	
+	@Column(name="parkingDuration")
+	private int parkingDuration;
+	
+	@Column(name="paymentMethod")
+	private String paymentMethod;
 
 	public Customer() {
 		super();
 	}
 
 	public Customer(int customerId, String name, String vehicleNumber, int tokenNumber, String phoneNumber,
-			int positionNumber) {
+			int positionNumber, int parkingDuration, String paymentMethod) {
 		super();
 		this.customerId = customerId;
 		this.name = name;
@@ -41,6 +47,8 @@ public class Customer {
 		this.tokenNumber = tokenNumber;
 		this.phoneNumber = phoneNumber;
 		this.positionNumber = positionNumber;
+		this.parkingDuration = parkingDuration;
+		this.paymentMethod = paymentMethod;
 	}
 
 	public int getCustomerId() {
@@ -91,15 +99,29 @@ public class Customer {
 		this.positionNumber = positionNumber;
 	}
 
+	public int getParkingDuration() {
+		return parkingDuration;
+	}
+
+	public void setParkingDuration(int parkingDuration) {
+		this.parkingDuration = parkingDuration;
+	}
+
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", name=" + name + ", vehicleNumber=" + vehicleNumber
 				+ ", tokenNumber=" + tokenNumber + ", phoneNumber=" + phoneNumber + ", positionNumber=" + positionNumber
-				+ "]";
+				+ ", parkingDuration=" + parkingDuration + ", paymentMethod=" + paymentMethod + "]";
 	}
 	
 	
-	
-	
 
-}
+}	
