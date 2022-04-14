@@ -9,32 +9,32 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Manager {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int managerId;
-	
-	@Column(name="firstName")
+
+	@Column(name = "firstName")
 	private String firstName;
-	
-	@Column(name="lastName")
+
+	@Column(name = "lastName")
 	private String lastName;
 
-	@Column(name="address")
+	@Column(name = "address")
 	private String address;
 
-	@Column(name="phoneNumber")
+	@Column(name = "phoneNumber")
 	private String phoneNumber;
 
-	@Column(name="salary")
+	@Column(name = "salary")
 	private double salary;
-
 
 	public Manager() {
 		super();
 	}
 
-	public Manager(int managerId, String firstName, String lastName, String address, String phoneNumber, double salary) {
+	public Manager(int managerId, String firstName, String lastName, String address, String phoneNumber,
+			double salary) {
 		super();
 		this.managerId = managerId;
 		this.firstName = firstName;
@@ -92,13 +92,10 @@ public class Manager {
 		this.salary = salary;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Manager [managerId=" + managerId + ", firstName=" + firstName + ", lastName=" + lastName + ", address="
-				+ address + ", phoneNumber=" + phoneNumber + ", salary=" + salary +"]";
+				+ address + ", phoneNumber=" + phoneNumber + ", salary=" + salary + "]";
 	}
-	
-	
 
 }

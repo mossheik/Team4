@@ -23,61 +23,54 @@ import com.cg.repository.CustomerRepository;
 import com.cg.repository.ManagerRepository;
 
 @Service
-public class ManagerService extends Parking{
-	private static final AtomicInteger count = new AtomicInteger(0); 
+public class ManagerService extends Parking {
+	private static final AtomicInteger count = new AtomicInteger(0);
 
-	
 	@Autowired
 	private ManagerRepository managerRepository;
-	
+
 	@Autowired
 	private CustomerRepository customerRepository;
-	
+
 	@Autowired
 	private BillRepository billRepository;
-	
-	
-	
-	public HashMap<Integer,String> getAllParkingPositions()
-	{
+
+	public HashMap<Integer, String> getAllParkingPositions() {
 		return parkingArea;
 	}
-	
-	public HashMap<Integer, String> getAvailableParkingPositions()
-	{
-		HashMap<Integer,String> newMap=new HashMap<>();
-		for(Map.Entry<Integer,String> m:parkingArea.entrySet()){
-			if(m.getValue().equals("Vacant"))
-			{
+
+	public HashMap<Integer, String> getAvailableParkingPositions() {
+		HashMap<Integer, String> newMap = new HashMap<>();
+		for (Map.Entry<Integer, String> m : parkingArea.entrySet()) {
+			if (m.getValue().equals("Vacant")) {
 				newMap.put(m.getKey(), m.getValue());
 			}
 		}
 		return newMap;
 	}
-	
-	public String registerCustomer(int id)
-	{
-		Customer customer=customerRepository.findById(id).get();
-		Bill b=new Bill();
-		return b.toString()+" "+customer.toString();
-		
-	}
-	public String generateBill(int id)
-	{
 
-		Customer customer=customerRepository.findById(id).get();
-		//Setting Bill Details
-		
+	public String registerCustomer(int id) {
+		Customer customer = customerRepository.findById(id).get();
+		Bill b = new Bill();
+		return b.toString() + " " + customer.toString();
+
+	}
+
+	public String generateBill(int id) {
+
+		Customer customer = customerRepository.findById(id).get();
+		// Setting Bill Details
+
 		Bill bill = new Bill();
-		int billId = count.incrementAndGet(); 
+		int billId = count.incrementAndGet();
 		bill.setBillId(billId);
-		ZoneId zonedId = ZoneId.of( "Asia/Kolkata");
-		LocalDate date = LocalDate.now( zonedId );
+		ZoneId zonedId = ZoneId.of("Asia/Kolkata");
+		LocalDate date = LocalDate.now(zonedId);
 		bill.setDate(date);
-		double amount = customer.getParkingDuration()*30;
+		double amount = customer.getParkingDuration() * 30;
 		bill.setAmount(amount);
-	
-		//Generating Bill Receipt
+
+		// Generating Bill Receipt
 		try {
 			File billObj = new File("Bill.txt");
 			FileWriter billReceipt = new FileWriter("Bill.txt");
@@ -93,59 +86,54 @@ public class ManagerService extends Parking{
 			billReceipt.append("\n");
 			billReceipt.append("----------------------------------");
 			billReceipt.append("\n");
-			billReceipt.append("Bill Id : "+bill.getBillId());
+			billReceipt.append("Bill Id : " + bill.getBillId());
 			billReceipt.append("\n");
-			billReceipt.append("Date : "+bill.getDate());
-			billReceipt.append("\n");
-			billReceipt.append("----------------------------------");
-			billReceipt.append("\n");
-			billReceipt.append("Customer Details");		
+			billReceipt.append("Date : " + bill.getDate());
 			billReceipt.append("\n");
 			billReceipt.append("----------------------------------");
 			billReceipt.append("\n");
-			billReceipt.append("Customer Id : "+customer.getCustomerId());
+			billReceipt.append("Customer Details");
 			billReceipt.append("\n");
-			billReceipt.append("Name : "+customer.getName());
+			billReceipt.append("----------------------------------");
 			billReceipt.append("\n");
-			billReceipt.append("Phone Number : "+customer.getPhoneNumber());
+			billReceipt.append("Customer Id : " + customer.getCustomerId());
 			billReceipt.append("\n");
-			billReceipt.append("Vehicle Number : "+customer.getVehicleNumber());
+			billReceipt.append("Name : " + customer.getName());
 			billReceipt.append("\n");
-			billReceipt.append("Token Number : "+customer.getTokenNumber());
+			billReceipt.append("Phone Number : " + customer.getPhoneNumber());
 			billReceipt.append("\n");
-			billReceipt.append("Parking Position : "+customer.getPositionNumber());
+			billReceipt.append("Vehicle Number : " + customer.getVehicleNumber());
 			billReceipt.append("\n");
-			billReceipt.append("Parking Duration (in Hours) : "+customer.getParkingDuration());
+			billReceipt.append("Token Number : " + customer.getTokenNumber());
+			billReceipt.append("\n");
+			billReceipt.append("Parking Position : " + customer.getPositionNumber());
+			billReceipt.append("\n");
+			billReceipt.append("Parking Duration (in Hours) : " + customer.getParkingDuration());
 			billReceipt.append("\n");
 			billReceipt.append("----------------------------------");
 			billReceipt.append("\n");
 			billReceipt.append("Payment (Charges : 30 Ruppes per Hour)");
 			billReceipt.append("\n");
 			billReceipt.append("----------------------------------");
-			billReceipt.append("\n");		
-			billReceipt.append("Total Amount : "+bill.getAmount());
-			billReceipt.append("\n");		
+			billReceipt.append("\n");
+			billReceipt.append("Total Amount : " + bill.getAmount());
+			billReceipt.append("\n");
 
-			if(customer.getPaymentMethod().equals("cash")) {
+			if (customer.getPaymentMethod().equals("cash")) {
 				billReceipt.append(CashPayment.cashPaymentDetails(amount));
 
-			}
-			else if(customer.getPaymentMethod().equals("card")) {
+			} else if (customer.getPaymentMethod().equals("card")) {
 				billReceipt.append(CardPayment.cardPaymentDetails(amount));
-			}
-			else {
+			} else {
 				billReceipt.append("Invaid Payment Method ");
 			}
-			
-			
+
 			billReceipt.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "Bill generated";
-		
-		
-		
+
 	}
 }

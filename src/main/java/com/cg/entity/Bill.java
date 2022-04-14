@@ -1,5 +1,6 @@
 package com.cg.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,23 +10,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Bill{
-	
+public class Bill {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int billId;
-	
-	@Column(name="date")
-	private Date date;
-	
-	@Column(name="amount")
-	private int amount;
+
+	@Column(name = "date")
+	private LocalDate date;
+
+	@Column(name = "amount")
+	private double amount;
 
 	public Bill() {
 		super();
 	}
 
-	public Bill(int billId, Date date, int amount) {
+	public Bill(int billId, LocalDate date, double amount) {
 		super();
 		this.billId = billId;
 		this.date = date;
@@ -40,28 +41,25 @@ public class Bill{
 		this.billId = billId;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDate(LocalDate date2) {
+		this.date = date2;
 	}
 
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
 	@Override
 	public String toString() {
-		return "Bill [billId=" + billId + ", date=" + date + ", amount=" + amount + ", toString()="
-				+ "]";
+		return "Bill [billId=" + billId + ", date=" + date + ", amount=" + amount + ", toString()=" + "]";
 	}
-	
-	
 
 }

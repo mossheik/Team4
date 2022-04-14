@@ -7,7 +7,7 @@ import com.cg.repository.BillRepository;
 
 @Service
 public class BillService {
-	
+
 	@Autowired
 	private BillRepository billRepository;
 

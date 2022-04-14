@@ -8,18 +8,18 @@ import javax.persistence.Id;
 
 @Entity
 public class Security {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int securityId;
-	
-	@Column(name="firstName")
+
+	@Column(name = "firstName")
 	private String firstName;
-	
-	@Column(name="lastName")
+
+	@Column(name = "lastName")
 	private String lastName;
-	
-	@Column(name="phoneNumber")
+
+	@Column(name = "phoneNumber")
 	private String phoneNumber;
 
 	public Security() {
@@ -33,8 +33,6 @@ public class Security {
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
 	}
-
-	
 
 	public int getSecurityId() {
 		return securityId;
@@ -73,13 +71,5 @@ public class Security {
 		return "Security [securityId=" + securityId + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", phoneNumber=" + phoneNumber + "]";
 	}
-
-	
-	
-	
-	
-	
-	
-	
 
 }

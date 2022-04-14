@@ -8,30 +8,30 @@ import javax.persistence.Id;
 
 @Entity
 public class Customer {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int customerId;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="vehicleNumber")
+
+	@Column(name = "vehicleNumber")
 	private String vehicleNumber;
-	
-	@Column(name="tokenNumber")
+
+	@Column(name = "tokenNumber")
 	private int tokenNumber;
-	
-	@Column(name="phoneNumber")
+
+	@Column(name = "phoneNumber")
 	private String phoneNumber;
-	
-	@Column(name="positionNumber")
+
+	@Column(name = "positionNumber")
 	private int positionNumber;
-	
-	@Column(name="parkingDuration")
+
+	@Column(name = "parkingDuration")
 	private int parkingDuration;
-	
-	@Column(name="paymentMethod")
+
+	@Column(name = "paymentMethod")
 	private String paymentMethod;
 
 	public Customer() {
@@ -121,7 +121,5 @@ public class Customer {
 				+ ", tokenNumber=" + tokenNumber + ", phoneNumber=" + phoneNumber + ", positionNumber=" + positionNumber
 				+ ", parkingDuration=" + parkingDuration + ", paymentMethod=" + paymentMethod + "]";
 	}
-	
-	
 
-}	
+}

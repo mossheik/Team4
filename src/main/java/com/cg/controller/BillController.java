@@ -7,7 +7,7 @@ import com.cg.service.BillService;
 
 @RestController
 public class BillController {
-	
+
 	@Autowired
 	private BillService billService;
 

@@ -11,25 +11,22 @@ import com.cg.service.ManagerService;
 
 @RestController
 public class ManagerController {
-	
+
 	@Autowired
 	private ManagerService managerService;
-	
+
 	@GetMapping("/allPosition")
-	public HashMap<Integer, String> getAllPosition()
-	{
+	public HashMap<Integer, String> getAllPosition() {
 		return managerService.getAllParkingPositions();
 	}
-	
+
 	@GetMapping("/availablePos")
-	public HashMap<Integer, String> getAvailablePosition()
-	{
+	public HashMap<Integer, String> getAvailablePosition() {
 		return managerService.getAvailableParkingPositions();
 	}
-	
+
 	@GetMapping("/genBill/{id}")
-	public String getBill(@PathVariable("id") int id)
-	{
+	public String getBill(@PathVariable("id") int id) {
 		return managerService.registerCustomer(id);
 	}
 
