@@ -4,8 +4,11 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.entity.Customer;
+import com.cg.entity.Manager;
 import com.cg.service.SecurityService;
 
 @RestController
@@ -16,22 +19,21 @@ public class SecurityController {
 
 	@GetMapping("/issueToken")
 	public String issueToken() {
-		int issuedToken = securityService.issueToken();
-		if (issuedToken > 0) {
-			return "Issued Token is : " + issuedToken;
-		} else {
-			return "Parking is Full";
-		}
+		return securityService.issueToken();
 	}
 
 	@GetMapping("/allToken")
-	public HashMap<Integer, String> allToken() {
+	public int allToken() {
 		return securityService.getAllToken();
 	}
-
-	@GetMapping("/availableToken")
-	public HashMap<Integer, String> getAvailablePosition() {
-		return securityService.getAvailableToken();
+	
+	@PostMapping("/verifySlot") 
+	public String verifySlot() {
+		Customer c;
+		if(securityService.isVerifySlot(c.getSlotNo(), c.getParkAt())) {
+			return "Car parked at correct position";
+		}
+		return "Please park at correct position";		
 	}
 
 }
