@@ -19,14 +19,14 @@ public class Customer {
 	@Column(name="vehicleNumber")
 	private String vehicleNumber;
 	
-	@Column(name="tokenNumber")
-	private int tokenNumber;
-	
 	@Column(name="phoneNumber")
 	private String phoneNumber;
 	
-	@Column(name="positionNumber")
-	private int positionNumber;
+	@Column(name="hasToken")
+	private boolean hasToken;
+	
+	@Column(name="slotNo")
+	private String slotNo;
 	
 	@Column(name="parkingDuration")
 	private int parkingDuration;
@@ -34,19 +34,20 @@ public class Customer {
 	@Column(name="paymentMethod")
 	private String paymentMethod;
 
+	
 	public Customer() {
 		super();
 	}
 
-	public Customer(int customerId, String name, String vehicleNumber, int tokenNumber, String phoneNumber,
-			int positionNumber, int parkingDuration, String paymentMethod) {
+	public Customer(int customerId, String name, String vehicleNumber, String phoneNumber, boolean hasToken, String slotNo,
+			int parkingDuration, String paymentMethod) {
 		super();
 		this.customerId = customerId;
 		this.name = name;
 		this.vehicleNumber = vehicleNumber;
-		this.tokenNumber = tokenNumber;
 		this.phoneNumber = phoneNumber;
-		this.positionNumber = positionNumber;
+		this.hasToken = hasToken;
+		this.slotNo = slotNo;
 		this.parkingDuration = parkingDuration;
 		this.paymentMethod = paymentMethod;
 	}
@@ -75,14 +76,6 @@ public class Customer {
 		this.vehicleNumber = vehicleNumber;
 	}
 
-	public int getTokenNumber() {
-		return tokenNumber;
-	}
-
-	public void setTokenNumber(int tokenNumber) {
-		this.tokenNumber = tokenNumber;
-	}
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -91,12 +84,20 @@ public class Customer {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public int getPositionNumber() {
-		return positionNumber;
+	public boolean getHasToken() {
+		return hasToken;
 	}
 
-	public void setPositionNumber(int positionNumber) {
-		this.positionNumber = positionNumber;
+	public void setHasToken(boolean hasToken) {
+		this.hasToken = hasToken;
+	}
+
+	public String getSlotNo() {
+		return slotNo;
+	}
+
+	public void setSlotNo(String slotNo2) {
+		this.slotNo = slotNo2;
 	}
 
 	public int getParkingDuration() {
@@ -118,9 +119,10 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", name=" + name + ", vehicleNumber=" + vehicleNumber
-				+ ", tokenNumber=" + tokenNumber + ", phoneNumber=" + phoneNumber + ", positionNumber=" + positionNumber
+				+ ", phoneNumber=" + phoneNumber + ", hasToken=" + hasToken + ", slotNo=" + slotNo
 				+ ", parkingDuration=" + parkingDuration + ", paymentMethod=" + paymentMethod + "]";
 	}
+
 	
 	
 

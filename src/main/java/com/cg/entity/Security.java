@@ -21,20 +21,27 @@ public class Security {
 	
 	@Column(name="phoneNumber")
 	private String phoneNumber;
+	
+	@Column(name="salary")
+	private double salary;
+	
+	@Column(name="securityType")
+	private String securityType;
 
 	public Security() {
 		super();
 	}
 
-	public Security(int securityId, String firstName, String lastName, String phoneNumber) {
+	public Security(int securityId, String firstName, String lastName, String phoneNumber, double salary,
+			String securityType) {
 		super();
 		this.securityId = securityId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
+		this.salary = salary;
+		this.securityType = securityType;
 	}
-
-	
 
 	public int getSecurityId() {
 		return securityId;
@@ -68,18 +75,27 @@ public class Security {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
+	public String getSecurityType() {
+		return securityType;
+	}
+
+	public void setSecurityType(String securityType) {
+		this.securityType = securityType;
+	}
+
 	@Override
 	public String toString() {
 		return "Security [securityId=" + securityId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", phoneNumber=" + phoneNumber + "]";
+				+ ", phoneNumber=" + phoneNumber + ", salary=" + salary + ", securityType=" + securityType + "]";
 	}
 
 	
-	
-	
-	
-	
-	
-	
-
 }

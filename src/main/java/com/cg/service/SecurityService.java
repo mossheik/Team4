@@ -10,47 +10,35 @@ import com.cg.repository.SecurityRepository;
 import com.cg.entity.*;
 
 @Service
-public class SecurityService extends TokenClass{
+public class SecurityService extends Token{
 	
 	@Autowired
 	private SecurityRepository securityRepository;
 	
-	
-	public int issueToken()
+	public int setToken(int tokenCount)
 	{
-		int tokenKey=0;
-		for(Map.Entry m:token.entrySet()){
-				if(m.getValue().equals("Vacant"))
-				{
-					 System.out.println(m.getKey());
-					 tokenKey=(int) m.getKey();
-					 token.replace(tokenKey, "Occupied");
-					 break;
-				}
-	  }
-		return tokenKey;
+		Token.setTokenCount(tokenCount);
+		return Token.tokenCount;
 	}
 	
-	public HashMap<Integer, String> getAllToken()
+	public int getTotalTokenCount()
 	{
-		return token;  
+		return Token.tokenCount;  
 	}
 	
-	public HashMap<Integer, String> getAvailableToken()
+	public boolean issueToken()
 	{
-		HashMap<Integer,String> newMap=new HashMap<>();
-		for(Map.Entry<Integer,String> m:token.entrySet()){
-			if(m.getValue().equals("Vacant"))
-			{
-				newMap.put(m.getKey(), m.getValue());
-			}
-		}
-		return newMap;
+		Token.tokenCount--;
+		return true;
 	}
 	
-	public int setToken()
+	public String verifySlot()
 	{
-		return issueToken();
+		//ADD METHOD
+		return null;
+		
 	}
+	
+	
 
 }

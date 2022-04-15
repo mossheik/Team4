@@ -4,15 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.entity.Customer;
-import com.cg.entity.Parking;
-import com.cg.entity.TokenClass;
+import com.cg.entity.Slot;
+import com.cg.entity.Token;
 import com.cg.repository.CustomerRepository;
+import com.cg.repository.SlotRepository;
 
 @Service
-public class CustomerService extends Parking{
+public class CustomerService{
 	
 	@Autowired
 	private CustomerRepository customerRepository;
+	
+	@Autowired
+	private SlotRepository slotRepository;
 	
 	SecurityService securityService=new SecurityService();
 	
@@ -22,23 +26,23 @@ public class CustomerService extends Parking{
 		return "Customer Added Successfully";
 	}
 	
-	public int getTokenNum(int id)
+	public boolean getToken(int id)
 	{
-		
-		int issuedToken=securityService.setToken();
 		Customer customer=customerRepository.findById(id).get();
-		customer.setTokenNumber(issuedToken);
+		customer.setHasToken(true);
+		Token.tokenCount--;
 		customerRepository.save(customer);
-		return customer.getTokenNumber();
+		return customer.getHasToken();
 	}
 	
-	public int choosePosition(int id,int positionNum)
+	public String chooseSlot(int id,String slotNo)
 	{
 		Customer customer=customerRepository.findById(id).get();
-		customer.setPositionNumber(positionNum);
-		parkingArea.replace(positionNum, "Occupied");
+		customer.setSlotNo(slotNo);
+		Slot slot=slotRepository.findBySlotNo(slotNo);
+		slot.setSlotStatus("Occupied");
 		customerRepository.save(customer);
-		return customer.getPositionNumber();
+		return customer.getSlotNo();
 	}
 	
 	public boolean setPosition()

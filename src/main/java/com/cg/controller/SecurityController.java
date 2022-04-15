@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.service.SecurityService;
@@ -14,11 +15,17 @@ public class SecurityController {
 	@Autowired
 	private SecurityService securityService;
 	
+	@GetMapping("/setAllToken/{totalToken}")
+	public int setTotalToken(@PathVariable("totalToken") int totalToken)
+	{
+		return securityService.setToken(totalToken);
+	}
+	
 	@GetMapping("/issueToken")
 	public String issueToken()
 	{
-		int issuedToken=securityService.issueToken();
-		if(issuedToken>0)
+		boolean issuedToken=securityService.issueToken();
+		if(issuedToken)
 		{
 			return "Issued Token is : "+issuedToken;
 		}
@@ -29,15 +36,10 @@ public class SecurityController {
 	}
 	
 	@GetMapping("/allToken")
-	public HashMap<Integer, String> allToken()
+	public int allToken()
 	{
-		return securityService.getAllToken();
+		return securityService.getTotalTokenCount();
 	}
 	
-	@GetMapping("/availableToken")
-	public HashMap<Integer, String> getAvailablePosition()
-	{
-		return securityService.getAvailableToken();
-	}
 
 }
