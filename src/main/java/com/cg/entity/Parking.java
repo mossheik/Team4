@@ -3,7 +3,7 @@ package com.cg.entity;
 import java.util.HashMap;
 
 public class Parking {
-
+	// Not required now
 	public static HashMap<Integer, String> parkingArea;
 
 	public Parking() {
