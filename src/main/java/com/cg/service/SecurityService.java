@@ -1,13 +1,11 @@
 package com.cg.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.entity.Token;
 import com.cg.repository.SecurityRepository;
-import com.cg.entity.*;
+
 
 @Service
 public class SecurityService extends Token {
@@ -16,15 +14,27 @@ public class SecurityService extends Token {
 	private SecurityRepository securityRepository;
 
 	public String issueToken() {
-		setTokenCount(getTokenCount() + 1);
-		return "Token issued";
+		String msg;
+		if(getTokenAvailable() > 0) {
+			setTokenAvailable(getTokenAvailable() - 1);
+			setTokenCount(getTokenCount() + 1);
+			msg = "Token issued";
+		}
+		else {
+			msg = "Parking is Full";
+		}
+		return msg;
 	}
 
 	public int getAllToken() {
 		return getTokenCount();
 	}
 	
-	public boolean isVerifySlot(String slotIssued,String  slotParked) {
+	public int getAvailableToken() {
+		return getTokenAvailable();
+	}
+	
+	public boolean isVerifySlot(String slotIssued,String slotParked) {
 		if(slotIssued.equalsIgnoreCase(slotParked)) {
 			return true;
 		}
