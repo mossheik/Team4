@@ -91,11 +91,4 @@ public class Manager {
 	public void setSalary(double salary) {
 		this.salary = salary;
 	}
-
-	@Override
-	public String toString() {
-		return "Manager [managerId=" + managerId + ", firstName=" + firstName + ", lastName=" + lastName + ", address="
-				+ address + ", phoneNumber=" + phoneNumber + ", salary=" + salary + "]";
-	}
-
 }
