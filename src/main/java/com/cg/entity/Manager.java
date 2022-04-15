@@ -9,24 +9,24 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Manager {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int managerId;
-	
-	@Column(name="firstName")
+
+	@Column(name = "firstName")
 	private String firstName;
-	
-	@Column(name="lastName")
+
+	@Column(name = "lastName")
 	private String lastName;
 
-	@Column(name="address")
+	@Column(name = "address")
 	private String address;
 
-	@Column(name="phoneNumber")
+	@Column(name = "phoneNumber")
 	private String phoneNumber;
 
-	@Column(name="salary")
+	@Column(name = "salary")
 	private double salary;
 	
 	@Column(name="managerType")

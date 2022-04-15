@@ -1,6 +1,5 @@
 package com.cg.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,15 +7,13 @@ import javax.persistence.Id;
 
 @Entity
 public class Security {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int securityId;
-	
-	@Column(name="firstName")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+
 	private String firstName;
-	
-	@Column(name="lastName")
+
 	private String lastName;
 	
 	@Column(name="phoneNumber")
@@ -28,9 +25,7 @@ public class Security {
 	@Column(name="securityType")
 	private String securityType;
 
-	public Security() {
-		super();
-	}
+	private double salary;
 
 	public Security(int securityId, String firstName, String lastName, String phoneNumber, double salary,
 			String securityType) {
@@ -67,12 +62,12 @@ public class Security {
 		this.lastName = lastName;
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public int getId() {
+		return id;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public double getSalary() {

@@ -8,15 +8,15 @@ import javax.persistence.Id;
 
 @Entity
 public class Customer {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int customerId;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="vehicleNumber")
+
+	@Column(name = "vehicleNumber")
 	private String vehicleNumber;
 	
 	@Column(name="phoneNumber")
@@ -30,8 +30,8 @@ public class Customer {
 	
 	@Column(name="parkingDuration")
 	private int parkingDuration;
-	
-	@Column(name="paymentMethod")
+
+	@Column(name = "paymentMethod")
 	private String paymentMethod;
 
 	
@@ -126,4 +126,4 @@ public class Customer {
 	
 	
 
-}	
+}

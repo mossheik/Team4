@@ -13,16 +13,15 @@ import com.cg.service.CustomerService;
 
 @RestController
 public class CustomerController {
-	
+
 	@Autowired
 	private CustomerService customerService;
-	
+
 	@PostMapping("/addCustomer")
-	public String addBook(@RequestBody Customer customer)
-	{
+	public String addBook(@RequestBody Customer customer) {
 		return customerService.addCustomer(customer);
 	}
-	
+
 	@GetMapping("/issuedToken/{id}")
 	public boolean getToken(@PathVariable("id") int id)
 	{

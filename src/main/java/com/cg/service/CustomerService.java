@@ -44,11 +44,10 @@ public class CustomerService{
 		customerRepository.save(customer);
 		return customer.getSlotNo();
 	}
-	
-	public boolean setPosition()
-	{
+
+	public boolean setPosition() {
 		return false;
-		
+
 	}
 
 }

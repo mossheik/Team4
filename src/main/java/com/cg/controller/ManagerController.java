@@ -13,7 +13,7 @@ import com.cg.service.ManagerService;
 
 @RestController
 public class ManagerController {
-	
+
 	@Autowired
 	private ManagerService managerService;
 	

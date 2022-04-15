@@ -1,13 +1,11 @@
 package com.cg.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.entity.Token;
 import com.cg.repository.SecurityRepository;
-import com.cg.entity.*;
+
 
 @Service
 public class SecurityService extends Token{
@@ -32,13 +30,12 @@ public class SecurityService extends Token{
 		return true;
 	}
 	
-	public String verifySlot()
-	{
-		//ADD METHOD
-		return null;
-		
+	public boolean isVerifySlot(String slotIssued,String slotParked) {
+		if(slotIssued.equalsIgnoreCase(slotParked)) {
+			return true;
+		}
+		return false;
 	}
-	
 	
 
 }

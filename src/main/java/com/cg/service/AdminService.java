@@ -25,6 +25,7 @@ public class AdminService {
 		securityRepository.save(security);
 		return "Security Added Succesfully";
 	}
+
 	public String removeSecurity(int securityId) {
 		securityRepository.deleteById(securityId);
 		return "Security Deleted Succesfully";
@@ -34,7 +35,7 @@ public class AdminService {
 		managerRepository.save(manager);
 		return "Manager Added Succesfully";
 	}
-	
+
 	public String removeManager(int id) {
 		managerRepository.deleteById(id);
 		return "Manager Deleted Succesfully";
@@ -122,33 +123,29 @@ public class AdminService {
 	}
 	/*
 	public String removeParkingEnd(int decrement) {
-		if(parking.removeParking(decrement)) {
+		if (parking.removeParking(decrement)) {
 			return "Parking Area Deleted Succesfully";
-		}
-		else {
+		} else {
 			return "Deallocation wasn't Succesfull";
 		}
 	}
-	
+
 	public String changeParkingStatus(int position, String status) {
-		if(parking.changeParkingStatus(position, status)) {
+		if (parking.changeParkingStatus(position, status)) {
 			return "Parking status changes succesfully";
-		}
-		else {
+		} else {
 			return "Error while changing the parking status";
 		}
 	}
-	
+
 	public String rangeChangeStatusParking(int start, int end, String status) {
-		if(parking.rangeChangeStatusParking(start, end, status)) {
+		if (parking.rangeChangeStatusParking(start, end, status)) {
 			return "Parking status upto the given range changes sucessfully";
-		}
-		else {
+		} else {
 			return "Error while changing the status";
 		}
 	}
 	
 	*/
 
-	
 }
