@@ -32,32 +32,19 @@ public class CustomerService{
 		customer.setHasToken(true);
 		Token.tokenCount--;
 		customerRepository.save(customer);
-		return customer.isHasToken();
+		return customer.getHasToken();
 	}
 	
 	public String chooseSlot(int id,String slotNo)
 	{
 		Customer customer=customerRepository.findById(id).get();
-		Slot s=slotRepository.findBySlotNo(slotNo);
-		if(s.getSlotStatus().equalsIgnoreCase("Vacant"))
-		{
-			customer.setSlotNo(slotNo);
-			Slot slot=slotRepository.findBySlotNo(slotNo);
-			slot.setSlotStatus("Occupied");
-			customerRepository.save(customer);
-			return customer.getCustomerId()+" is Alloted to "+slot.getSlotNo();
-		}else
-		{
-			return "Slot is "+s.getSlotStatus();
-		}
-		
+		customer.setSlotNo(slotNo);
+		Slot slot=slotRepository.findBySlotNo(slotNo);
+		slot.setSlotStatus("Occupied");
+		customerRepository.save(customer);
+		return customer.getSlotNo();
 	}
 
-	/*
-	 * public String parkAt() {
-	 * 
-	 * }
-	 */
 	public boolean setPosition() {
 		return false;
 
