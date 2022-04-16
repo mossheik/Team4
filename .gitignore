@@ -38,3 +38,7 @@ out/
 
 ### Eclipse ###
 .metadata/
+
+### application.properties ###
+src/main/resources/application.properties
+
