@@ -1,5 +1,6 @@
 package com.cg.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,17 +11,39 @@ public class Security {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private int securityId;
 
 	private String firstName;
 
 	private String lastName;
-
+	
+	@Column(name="phoneNumber")
+	private String phoneNumber;
+	
+	@Column(name="salary")
 	private double salary;
-
-	private String phoneNo;
-
+	
+	@Column(name="securityType")
 	private String securityType;
+
+	public Security(int securityId, String firstName, String lastName, String phoneNumber, double salary,
+			String securityType) {
+		super();
+		this.securityId = securityId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.salary = salary;
+		this.securityType = securityType;
+	}
+
+	public int getSecurityId() {
+		return securityId;
+	}
+
+	public void setSecurityId(int securityId) {
+		this.securityId = securityId;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -38,12 +61,13 @@ public class Security {
 		this.lastName = lastName;
 	}
 
-	public int getId() {
-		return id;
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public double getSalary() {
@@ -54,14 +78,6 @@ public class Security {
 		this.salary = salary;
 	}
 
-	public String getPhoneNo() {
-		return phoneNo;
-	}
-
-	public void setPhoneNo(String phoneNo) {
-		this.phoneNo = phoneNo;
-	}
-
 	public String getSecurityType() {
 		return securityType;
 	}
@@ -70,17 +86,11 @@ public class Security {
 		this.securityType = securityType;
 	}
 
-	public Security() {
-		super();
+	@Override
+	public String toString() {
+		return "Security [securityId=" + securityId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", phoneNumber=" + phoneNumber + ", salary=" + salary + ", securityType=" + securityType + "]";
 	}
 
-	public Security(String firstName, String lastName, int id, double salary, String phoneNo, String securityType) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.id = id;
-		this.salary = salary;
-		this.phoneNo = phoneNo;
-		this.securityType = securityType;
-	}
+	
 }

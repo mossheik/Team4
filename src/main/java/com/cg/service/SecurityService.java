@@ -8,30 +8,26 @@ import com.cg.repository.SecurityRepository;
 
 
 @Service
-public class SecurityService extends Token {
-
+public class SecurityService extends Token{
+	
 	@Autowired
 	private SecurityRepository securityRepository;
-
-	public String issueToken() {
-		String msg;
-		if(getTokenAvailable() > 0) {
-			setTokenAvailable(getTokenAvailable() - 1);
-			setTokenCount(getTokenCount() + 1);
-			msg = "Token issued";
-		}
-		else {
-			msg = "Parking is Full";
-		}
-		return msg;
-	}
-
-	public int getAllToken() {
-		return getTokenCount();
+	
+	public int setToken(int tokenCount)
+	{
+		Token.setTokenCount(tokenCount);
+		return Token.tokenCount;
 	}
 	
-	public int getAvailableToken() {
-		return getTokenAvailable();
+	public int getTotalTokenCount()
+	{
+		return Token.tokenCount;  
+	}
+	
+	public boolean issueToken()
+	{
+		Token.tokenCount--;
+		return true;
 	}
 	
 	public boolean isVerifySlot(String slotIssued,String slotParked) {
@@ -40,5 +36,6 @@ public class SecurityService extends Token {
 		}
 		return false;
 	}
+	
 
 }

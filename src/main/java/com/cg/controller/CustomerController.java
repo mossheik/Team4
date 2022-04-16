@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.entity.Customer;
 import com.cg.service.CustomerService;
 
+
 @RestController
 public class CustomerController {
 
@@ -22,13 +23,15 @@ public class CustomerController {
 	}
 
 	@GetMapping("/issuedToken/{id}")
-	public int getToken(@PathVariable("id") int id) {
-		return customerService.getTokenNum(id);
+	public boolean getToken(@PathVariable("id") int id)
+	{
+		return customerService.getToken(id);
 	}
-
-	@GetMapping("/choosePos/{id}/{positionNum}")
-	public int getToken(@PathVariable("id") int id, @PathVariable("positionNum") int positionNum) {
-		return customerService.choosePosition(id, positionNum);
+	
+	@GetMapping("/chooseSlot/{id}/{slotNo}")
+	public String getToken(@PathVariable("id") int id,@PathVariable("slotNo") String slotNo)
+	{
+		return customerService.chooseSlot(id, slotNo);
 	}
 
 }
