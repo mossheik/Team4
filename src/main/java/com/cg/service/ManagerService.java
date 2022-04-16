@@ -63,15 +63,16 @@ public class ManagerService{
 		bill.setCustomer(customer);
 		bill.setDate(LocalDate.now());	
 		bill.setEntryTime(LocalTime.now().truncatedTo(ChronoUnit.SECONDS));		
-		
+		billRepository.save(bill);
+
 		//Generating Receipt
 		try {
 			FileWriter receipt = new FileWriter("Receipt.txt");
-			receipt.append("\t\t==================================");
+			receipt.append("\t\t=========================================");
 			receipt.append("\n");
 			receipt.append("\t\t  TEAM 4 - CAR PARKING SYSTEM (Receipt)");
 			receipt.append("\n");
-			receipt.append("\t\t==================================");
+			receipt.append("\t\t=========================================");
 			receipt.append("\n");
 			receipt.append("----------------------------------");
 			receipt.append("\n");
@@ -105,7 +106,6 @@ public class ManagerService{
 			receipt.append("\n");
 			receipt.close();
 			
-			billRepository.save(bill);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -140,7 +140,7 @@ public class ManagerService{
 			FileWriter finalBill = new FileWriter("Bill.txt");
 			finalBill.append("\t\t==================================");
 			finalBill.append("\n");
-			finalBill.append("\t\t     TEAM 4 CAR PARKING SYSTEM (Bill)");
+			finalBill.append("\t\t  TEAM 4 CAR PARKING SYSTEM (Bill)");
 			finalBill.append("\n");
 			finalBill.append("\t\t==================================");
 			finalBill.append("\n");
