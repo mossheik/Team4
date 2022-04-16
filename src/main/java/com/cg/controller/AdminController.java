@@ -1,9 +1,11 @@
 package com.cg.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +18,7 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	
 	
 	@PostMapping("/addSecurity")
 	public String addSecurity(@RequestBody Security sec) {
@@ -36,34 +39,22 @@ public class AdminController {
 	public String removeManager(@PathVariable("id") int id){
 		return adminService.removeManager(id);
 	}
-
-	@GetMapping("/addParking/{incr}/{type}")
-	public String addParkingEnd(@PathVariable("incr") int incr,@PathVariable("type") String type ){
-		return adminService.addParkingEnd(incr, type);
+	
+	@GetMapping("/addAllSlot/{status}/{totalSlotCount}/{type}")
+	public String addParking(@PathVariable("status") String status,@PathVariable("totalSlotCount") int totalSlotCount,@PathVariable("type") String type){
+	return adservice.addSlot(totalSlotCount,type,status);
 	}
 	
-	//FOR TESTING
-	@GetMapping("/addAllSlot/{totalSlotCount}/{type}")
-	public String addParking(@PathVariable("totalSlotCount") int totalSlotCount,@PathVariable("type") String type ){
-		return adminService.addSlot(totalSlotCount,type);
+	@DeleteMapping("/deleteSlot/{decr}/{start}")
+	public String removeSlot(@PathVariable("decr") int decr,@PathVariable("start") String start){
+		return adservice.removeSlot(decr, start);
 	}
-	//END HERE
-	//CHECK
-	@GetMapping("/removeParking/{decrement}")
-	public String removeParkingEnd(@PathVariable("decrement") int decrement){
-		return null;
-		//return adminService.removeParkingEnd(decrement);
+	@PutMapping("/update/{slotNo}/{type}")
+	public String update(@PathVariable("slotNo") String slotNo,@PathVariable("type") String type ) {
+		return adservice.updateSlot(slotNo,type);
 	}
-
-	@GetMapping("/changeStatus/{position}/{status}")
-	public String changeParkingStatus(@PathVariable("position") int position,@PathVariable("status") String status ){
-		return status;
-		//return adminService.changeParkingStatus(position, status);
-	}
-
-	@GetMapping("/rangechangeStatus/{start}/{end}/{status}")
-	public String rangeChangeParkingStatus(@PathVariable("start") int start,@PathVariable("end") int end, @PathVariable("end") String status ){
-		return status;
-		//return adminService.rangeChangeStatusParking(start, end, status);
+	@PutMapping("/rangeChange/{start}/{end}/{type}")
+	public String rangechangeSlot(@PathVariable("start") String start,@PathVariable("end") int end, @PathVariable("type") String type ) {
+		return adservice.rangeChangeStatusSlot(start, end, type);
 	}
 }
