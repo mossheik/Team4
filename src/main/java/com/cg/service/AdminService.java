@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.cg.entity.Manager;
 import com.cg.entity.Security;
 import com.cg.entity.Slot;
+import com.cg.entity.Token;
 import com.cg.repository.AdminRepository;
 import com.cg.repository.ManagerRepository;
 import com.cg.repository.SecurityRepository;
@@ -21,7 +22,7 @@ public class AdminService {
 	@Autowired
 	private SecurityRepository securityRepository;
 	@Autowired
-	private ManagerRepository marepo;
+	private ManagerRepository managerRepository;
 	@Autowired
 	private SlotRepository slotRepository;
 	

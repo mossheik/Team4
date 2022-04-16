@@ -42,19 +42,19 @@ public class AdminController {
 	
 	@GetMapping("/addAllSlot/{status}/{totalSlotCount}/{type}")
 	public String addParking(@PathVariable("status") String status,@PathVariable("totalSlotCount") int totalSlotCount,@PathVariable("type") String type){
-	return adservice.addSlot(totalSlotCount,type,status);
+	return adminService.addSlot(totalSlotCount,type,status);
 	}
 	
 	@DeleteMapping("/deleteSlot/{decr}/{start}")
 	public String removeSlot(@PathVariable("decr") int decr,@PathVariable("start") String start){
-		return adservice.removeSlot(decr, start);
+		return adminService.removeSlot(decr, start);
 	}
 	@PutMapping("/update/{slotNo}/{type}")
 	public String update(@PathVariable("slotNo") String slotNo,@PathVariable("type") String type ) {
-		return adservice.updateSlot(slotNo,type);
+		return adminService.updateSlot(slotNo,type);
 	}
 	@PutMapping("/rangeChange/{start}/{end}/{type}")
 	public String rangechangeSlot(@PathVariable("start") String start,@PathVariable("end") int end, @PathVariable("type") String type ) {
-		return adservice.rangeChangeStatusSlot(start, end, type);
+		return adminService.rangeChangeStatusSlot(start, end, type);
 	}
 }
