@@ -35,3 +35,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Eclipse ###
+.metadata/
+
+### application.properties ###
+src/main/resources/application.properties
+
