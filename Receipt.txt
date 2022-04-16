@@ -1,21 +1,18 @@
 		==================================
-		     TEAM 4 - CAR PARKING SYSTEM
+		  TEAM 4 - CAR PARKING SYSTEM (Receipt)
 		==================================
 ----------------------------------
 Receipt Details
 ----------------------------------
-Bill Id : 3
+Bill Id : 4
 Date : 2022-04-16
 ----------------------------------
 Customer Details
 ----------------------------------
-Customer Id : 1
-Name : AK
-Phone Number : 898989
-Vehicle Number : MH40
+Customer Id : 2
+Name : Sam
+Phone Number : 9977898989
+Vehicle Number : MH33ZY6788
 Token Number : true
-Parking Position : A2
-Entry Time : 11:46:41.951747700
-----------------------------------
-Payment (Charges : 30 Ruppes per Hour)
-----------------------------------
+Parking Position : A11
+Entry Time : 15:31:28

@@ -18,52 +18,54 @@ import com.cg.repository.SlotRepository;
 public class AdminService {
 	
 	@Autowired 
-	public AdminRepository adrepo;
+	public AdminRepository adminRepository;
 	@Autowired
 	private SecurityRepository securityRepository;
 	@Autowired
 	private ManagerRepository managerRepository;
 	@Autowired
 	private SlotRepository slotRepository;
+
 	
-	
-	//Parking parking = new Parking();
-	//Slots slots = new Slots();
-	
-	//Adding Security Class
+	//Adding Security
 	public String addSecurity(Security security) {
 		securityRepository.save(security);
 		return "Security Added Succesfully";
 	}
 	
-	//Removing Security Class
+	//Removing Security
 	public String removeSecurity(int securityId) {
 		securityRepository.deleteById(securityId);
 		return "Security Deleted Succesfully";
 	}
 	
-	// Adding Manager Class
+	//Adding Manager
 	public String addManager(Manager manager) {
 		managerRepository.save(manager);
 		return "Manager Added Succesfully";
 	}
 	
-	// Removing Manager Class
-	public String removeManager(int id) {
-		managerRepository.deleteById(id);
+	//Removing Manager
+	public String removeManager(int managerId) {
+		managerRepository.deleteById(managerId);
 		return "Manager Deleted Succesfully";
 	}
 	
-	// Adding parking slots
+	//Adding Parking Slots
 	public String addSlot(int totalSlot,String type,String status) {
+		
 		Slot s= new Slot();
+		
+		//Generating Token as per Slots
 		Token.tokenCount=Token.tokenCount+totalSlot;
-		// For Creating a Table
+		
+		//Creating Slots
 		if(status.equals("Create") || status.equals("create")) {
-			char var = 'A';
-			String var1="A";
-			int counter =0;
+				char var = 'A';
+				String var1="A";
+				int counter =0;
 			
+				//Generating SlotNo and Adding Slot Table
 				for(int i=0;i<totalSlot;i++)
 				{
 					counter++;
@@ -87,36 +89,39 @@ public class AdminService {
 				
 				return totalSlot+" Slots Added Succesfully";
 		}
-		
-		// Inserting into the Table
+		//Extending Slots
 		else if(status.equals("Insert") || status.equals("insert")) {
 			
-			Slot lastSlotRepo = slotRepository.findTopByOrderBySlotNoDesc();
-			String lastSlot = lastSlotRepo.getSlotNo();
-			char l = lastSlot.charAt(0);
-			String ls = lastSlot.substring(1);
-			int lst = Integer.parseInt(ls);
-			String val = l+"";
-			int c = lst;
-			for(int i=lst;i<totalSlot+lst;i++)
-			{
-				c++;
-				if(i %20 ==0) {
-					l = (char)(l+1);
-					val="";
-					val = Character.toString(l);
-					c=1;
-				}
-				if(c<10) {
-				s.setSlotNo(val+"0"+c);
-				}
-				else {
-					s.setSlotNo(val+c);
-				}
-				s.setSlotStatus(type);
-				slotRepository.save(s);
+				//Getting Last slotNo
+				Slot lastSlotRepo = slotRepository.findTopByOrderBySlotNoDesc();
+				String lastSlot = lastSlotRepo.getSlotNo();
 				
-			}
+				char l = lastSlot.charAt(0);
+				String ls = lastSlot.substring(1);
+				int lst = Integer.parseInt(ls);
+				String val = l+"";
+				int c = lst;
+			
+				//Generating SlotNo and Adding Slot Table
+				for(int i=lst;i<totalSlot+lst;i++)
+				{
+					c++;
+					if(i %20 ==0) {
+						l = (char)(l+1);
+						val="";
+						val = Character.toString(l);
+						c=1;
+					}
+					if(c<10) {
+					s.setSlotNo(val+"0"+c);
+					}
+					else {
+						s.setSlotNo(val+c);
+					}
+					s.setSlotStatus(type);
+					slotRepository.save(s);
+					
+				}
 			return totalSlot+" Slots Inserted Succesfully";
 
 		}
@@ -125,6 +130,7 @@ public class AdminService {
 	
 	}
 	
+	//Remove Slot
 	public String removeSlot(int decr,String slotPos) {
 		char l = slotPos.charAt(0);
 		String ls = slotPos.substring(1);
@@ -144,7 +150,7 @@ public class AdminService {
 			else {
 				slotPos = val+c;
 			}
-			
+			//Deleting Slot
 			slotRepository.deleteBySlotNo(slotPos);
 			c++;
 		}
@@ -157,21 +163,27 @@ public class AdminService {
 	// For Updating Type at any slot Position
 	public String updateSlot(String slotPos,String status) {
 		Slot s =new Slot();
+		
+		//Setting Updated Details
 		s.setSlotNo(slotPos);
 		s.setSlotStatus(status);
+		
 		slotRepository.save(s);
 		return "Update Succesfully";
-		}
+	}
 	
 	
 	// Updating Slot Type for a Given Range
 	public String rangeChangeStatusSlot(String slotPos,int range,String type) {
+		
 		Slot s =new Slot();
 		char l = slotPos.charAt(0);
 		String ls = slotPos.substring(1);
 		int lst = Integer.parseInt(ls);
 		String val = l+"";
 		int c = lst;
+		
+		//Setting Updated Slot Status and save Slot
 		for(int i=lst;i<=range+lst;i++) {
 			
 			if(i %20 ==0) {
