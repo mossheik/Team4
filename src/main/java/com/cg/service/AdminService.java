@@ -19,7 +19,7 @@ public class AdminService {
 	@Autowired 
 	public AdminRepository adrepo;
 	@Autowired
-	private SecurityRepository serepo;
+	private SecurityRepository securityRepository;
 	@Autowired
 	private ManagerRepository marepo;
 	@Autowired
@@ -31,32 +31,32 @@ public class AdminService {
 	
 	//Adding Security Class
 	public String addSecurity(Security security) {
-		serepo.save(security);
+		securityRepository.save(security);
 		return "Security Added Succesfully";
 	}
 	
 	//Removing Security Class
 	public String removeSecurity(int securityId) {
-		serepo.deleteById(securityId);
+		securityRepository.deleteById(securityId);
 		return "Security Deleted Succesfully";
 	}
 	
 	// Adding Manager Class
 	public String addManager(Manager manager) {
-		marepo.save(manager);
+		managerRepository.save(manager);
 		return "Manager Added Succesfully";
 	}
 	
 	// Removing Manager Class
 	public String removeManager(int id) {
-		marepo.deleteById(id);
+		managerRepository.deleteById(id);
 		return "Manager Deleted Succesfully";
 	}
 	
 	// Adding parking slots
 	public String addSlot(int totalSlot,String type,String status) {
 		Slot s= new Slot();
-		
+		Token.tokenCount=Token.tokenCount+totalSlot;
 		// For Creating a Table
 		if(status.equals("Create") || status.equals("create")) {
 			char var = 'A';
@@ -120,6 +120,8 @@ public class AdminService {
 
 		}
 		return "Please Choose Correct Status";
+
+	
 	}
 	
 	public String removeSlot(int decr,String slotPos) {

@@ -17,29 +17,27 @@ import com.cg.service.AdminService;
 public class AdminController {
 
 	@Autowired
-	private AdminService adservice;
+	private AdminService adminService;
 	
 	
 	@PostMapping("/addSecurity")
 	public String addSecurity(@RequestBody Security sec) {
-		return adservice.addSecurity(sec);
+		return adminService.addSecurity(sec);
 	}
-	
 
 	@GetMapping("/delSecurity/{securityId}")
 	public String removeSecurity(@PathVariable("securityId") int id){
-		return adservice.removeSecurity(id);
+		return adminService.removeSecurity(id);
 	}
-	
+
 	@PostMapping("/addManager")
 	public String addManager(@RequestBody Manager man) {
-		return adservice.addManager(man);
+		return adminService.addManager(man);
 	}
-	
 
 	@GetMapping("/delManager/{id}")
 	public String removeManager(@PathVariable("id") int id){
-		return adservice.removeManager(id);
+		return adminService.removeManager(id);
 	}
 	
 	@GetMapping("/addAllSlot/{status}/{totalSlotCount}/{type}")

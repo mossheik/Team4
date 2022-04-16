@@ -18,6 +18,13 @@ public interface SlotRepository extends JpaRepository<Slot,Integer>{
 	@Modifying 
 	@Query("delete from Slot slot where slot.slotNo=:slot")
 	public void deleteBySlotNo(@Param("slot") String slot);
+
+	@Query("SELECT s FROM Slot s WHERE s.slotStatus = 'Vacant'")
+	public List<Slot> findAllAvailableSlot();
+	
+	
+	@Query("from Slot slot where slot.slotNo=:slot") 
+	public Slot findBySlotNo(@Param("slot") String slot);
 	
 	
 	

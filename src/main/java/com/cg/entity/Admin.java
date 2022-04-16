@@ -8,49 +8,42 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="admin")
+@Table(name = "admin")
 public class Admin {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
-	
-	@Column(name="F-Name")
+
+	@Column(name = "F-Name")
 	private String firstName;
-	
-	@Column(name="L-Name")
+
+	@Column(name = "L-Name")
 	private String lastName;
-	
-	@Column(name="Phone Number")
-	private  String phoneNo;
-	
-	@Column(name="Address")
-	private  String address;
-	
-	@Column(name="Age")
+
+	@Column(name = "Phone Number")
+	private String phoneNo;
+
+	@Column(name = "Address")
+	private String address;
+
+	@Column(name = "Age")
 	private int age;
-	
-	
 
 	public Admin() {
-		
+
 	}
-	
-	public Admin(int id,String firstName, String lastName, String phoneNo, String address, int age) {
+
+	public Admin(int id, String firstName, String lastName, String phoneNo, String address, int age) {
 		super();
-		this.id=id;
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNo = phoneNo;
 		this.address = address;
 		this.age = age;
-		
-		
-		
-	}
 
-	
+	}
 
 	public int getId() {
 		return id;
@@ -99,7 +92,6 @@ public class Admin {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	
 
 	@Override
 	public String toString() {
@@ -107,13 +99,4 @@ public class Admin {
 				+ ", address=" + address + ", age=" + age + "]";
 	}
 
-	
-
-	
-
-	
-	
-	
-	
-	
 }
