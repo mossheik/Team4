@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Security {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int securityId;
 
 	private String firstName;

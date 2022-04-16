@@ -22,16 +22,41 @@ public class CustomerController {
 		return customerService.addCustomer(customer);
 	}
 
-	@GetMapping("/issuedToken/{id}")
-	public boolean getToken(@PathVariable("id") int id)
+	@GetMapping("/{securityType}/issueToken/{customerId}")
+	public String getToken(@PathVariable("securityType") String securityType,@PathVariable("customerId") int customerId)
 	{
-		return customerService.getToken(id);
+		if(securityType.equalsIgnoreCase("PrimarySecurity"))
+		{
+			return customerService.getToken(customerId);
+		}else if(securityType.equalsIgnoreCase("SecondarySecurity"))
+		{
+			return "Only Primary Security can issue Token!";
+		}
+		else {
+			return "Primary Security is not available!";
+		}
+		
 	}
 	
-	@GetMapping("/chooseSlot/{id}/{slotNo}")
-	public String getToken(@PathVariable("id") int id,@PathVariable("slotNo") String slotNo)
+	@GetMapping("/selectSlot/{customerId}/{slotNo}")
+	public String getToken(@PathVariable("customerId") int customerId,@PathVariable("slotNo") String slotNo)
 	{
-		return customerService.chooseSlot(id, slotNo);
+		return customerService.selectSlot(customerId, slotNo);
+	}
+	
+	@GetMapping("/{securityType}/verifyParkingSlot/{receiptId}/{slotNo}")
+	public String verifyParkingSlot(@PathVariable("securityType") String securityType,@PathVariable("receiptId") int receiptId,@PathVariable("slotNo") String slotNo)
+	{
+		if(securityType.equalsIgnoreCase("SecondarySecurity"))
+		{
+			return customerService.parkAt(receiptId, slotNo);
+		}else if(securityType.equalsIgnoreCase("PrimarySecurity"))
+		{
+			return "Only Secondary Security can issue Token!";
+		}
+		else {
+			return "Secondary Security is not available!";
+		}
 	}
 
 }

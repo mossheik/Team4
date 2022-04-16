@@ -1,0 +1,24 @@
+		==================================
+		     TEAM 4 CAR PARKING SYSTEM (Bill)
+		==================================
+----------------------------------
+Bill Details
+----------------------------------
+Bill Id : 2
+Date : 2022-04-16
+----------------------------------
+Customer Details
+----------------------------------
+Customer Id : 1
+Name : Rahul
+Phone Number : 7887898989
+Vehicle Number : MH40ZZ7777
+Token Number : true
+Parking Position : A10
+Entry Time : 15:24:23
+Exit Time : 15:35:27.104432200
+Parking Duration (in Hours) : 1
+----------------------------------
+Payment (Charges : 60 Ruppes per Hour)
+----------------------------------
+Total Amount : 60.0
