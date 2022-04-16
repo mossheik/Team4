@@ -1,5 +1,6 @@
 package com.cg.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,16 +17,16 @@ public class Bill{
 	private int billId;
 	
 	@Column(name="date")
-	private Date date;
+	private LocalDate date;
 	
 	@Column(name="amount")
-	private int amount;
+	private double amount;
 
 	public Bill() {
 		super();
 	}
 
-	public Bill(int billId, Date date, int amount) {
+	public Bill(int billId, LocalDate date, int amount) {
 		super();
 		this.billId = billId;
 		this.date = date;
@@ -40,20 +41,20 @@ public class Bill{
 		this.billId = billId;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDate(LocalDate date2) {
+		this.date = date2;
 	}
 
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public void setAmount(double amount2) {
+		this.amount = amount2;
 	}
 
 	@Override
