@@ -30,11 +30,11 @@ public class SecurityService extends Token{
 		return true;
 	}
 	
-	public boolean isVerifySlot(String slotIssued,String slotParked) {
+	public String isVerifySlot(String slotIssued,String slotParked) {
 		if(slotIssued.equalsIgnoreCase(slotParked)) {
-			return true;
+			return "Parked Correct Position";
 		}
-		return false;
+		return "Park At Wrong Position";
 	}
 	
 
