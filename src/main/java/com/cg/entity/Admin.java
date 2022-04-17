@@ -2,56 +2,24 @@ package com.cg.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "admin")
-public class Admin {
+public class Admin extends Person {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-
-	@Column(name = "F-Name")
+	@Column(name = "firstname")
 	private String firstName;
 
-	@Column(name = "L-Name")
+	@Column(name = "lastname")
 	private String lastName;
 
-	@Column(name = "Phone Number")
+	@Column(name = "phonenumber")
 	private String phoneNo;
 
-	@Column(name = "Address")
+	@Column(name = "address")
 	private String address;
 
-	@Column(name = "Age")
+	@Column(name = "age")
 	private int age;
-
-	public Admin() {
-
-	}
-
-	public Admin(int id, String firstName, String lastName, String phoneNo, String address, int age) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phoneNo = phoneNo;
-		this.address = address;
-		this.age = age;
-
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -93,10 +61,7 @@ public class Admin {
 		this.age = age;
 	}
 
-	@Override
-	public String toString() {
-		return "Admin [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNo=" + phoneNo
-				+ ", address=" + address + ", age=" + age + "]";
+	public Admin() {
+		super();
 	}
-
 }

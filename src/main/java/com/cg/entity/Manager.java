@@ -2,17 +2,9 @@ package com.cg.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
-public class Manager {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int managerId;
+public class Manager extends Person {
 
 	@Column(name = "firstName")
 	private String firstName;
@@ -28,33 +20,9 @@ public class Manager {
 
 	@Column(name = "salary")
 	private double salary;
-	
-	@Column(name="managerType")
+
+	@Column(name = "managerType")
 	private String managerType;
-	
-	
-	public Manager() {
-		super();
-	}
-
-	public Manager(int managerId, String firstName, String lastName, String address, String phoneNumber, double salary,String managerType) {
-		super();
-		this.managerId = managerId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.address = address;
-		this.phoneNumber = phoneNumber;
-		this.salary = salary;
-		this.managerType=managerType;
-	}
-
-	public int getManagerId() {
-		return managerId;
-	}
-
-	public void setManagerId(int managerId) {
-		this.managerId = managerId;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -96,7 +64,6 @@ public class Manager {
 		this.salary = salary;
 	}
 
-	
 	public String getManagerType() {
 		return managerType;
 	}
@@ -104,13 +71,5 @@ public class Manager {
 	public void setManagerType(String managerType) {
 		this.managerType = managerType;
 	}
-
-	@Override
-	public String toString() {
-		return "Manager [managerId=" + managerId + ", firstName=" + firstName + ", lastName=" + lastName + ", address="
-				+ address + ", phoneNumber=" + phoneNumber + ", salary=" + salary +"]";
-	}
-	
-	
 
 }
