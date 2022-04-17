@@ -7,35 +7,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-<<<<<<< Updated upstream
 public class Security {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int securityId;
-=======
-public class Security extends Person {
->>>>>>> Stashed changes
 
 	private String firstName;
 
 	private String lastName;
-
-	@Column(name = "phoneNumber")
+	
+	@Column(name="phoneNumber")
 	private String phoneNumber;
-
-	@Column(name = "salary")
+	
+	@Column(name="salary")
 	private double salary;
-
-	@Column(name = "securityType")
+	
+	@Column(name="securityType")
 	private String securityType;
 
-	public Security() {
-	}
-
-	public Security(String userName, String password, String firstName, String lastName, String phoneNumber,
-			double salary, String securityType) {
-		super(userName, password);
+	public Security(int securityId, String firstName, String lastName, String phoneNumber, double salary,
+			String securityType) {
+		super();
+		this.securityId = securityId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
@@ -44,11 +38,11 @@ public class Security extends Person {
 	}
 
 	public int getSecurityId() {
-		return id;
+		return securityId;
 	}
 
-	public void setSecurityId(int id) {
-		this.id = id;
+	public void setSecurityId(int securityId) {
+		this.securityId = securityId;
 	}
 
 	public String getFirstName() {
@@ -67,6 +61,7 @@ public class Security extends Person {
 		this.lastName = lastName;
 	}
 
+	
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -93,8 +88,9 @@ public class Security extends Person {
 
 	@Override
 	public String toString() {
-		return "Security [securityId=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber="
-				+ phoneNumber + ", salary=" + salary + ", securityType=" + securityType + "]";
+		return "Security [securityId=" + securityId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", phoneNumber=" + phoneNumber + ", salary=" + salary + ", securityType=" + securityType + "]";
 	}
 
+	
 }
