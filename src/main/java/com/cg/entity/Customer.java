@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 public class Customer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int customerId;
 
 	@Column(name = "name")

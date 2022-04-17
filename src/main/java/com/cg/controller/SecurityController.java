@@ -20,31 +20,26 @@ public class SecurityController {
 	@Autowired
 	private SecurityService securityService;
 	
+	@GetMapping("/{securityType}/allToken")
+	public String allToken(@PathVariable("securityType") String securityType)
+	{
+		if(securityType.equalsIgnoreCase("PrimarySecurity") || securityType.equalsIgnoreCase("SecondarySecurity"))
+		{
+			return securityService.getTotalTokenCount();
+		}
+		else {
+			return "Security Not Available";
+		}
+		
+	}
+	
 	@GetMapping("/setAllToken/{totalToken}")
 	public int setTotalToken(@PathVariable("totalToken") int totalToken)
 	{
 		return securityService.setToken(totalToken);
 	}
-	
-	@GetMapping("/issueToken")
-	public String issueToken()
-	{
-		boolean issuedToken=securityService.issueToken();
-		if(issuedToken)
-		{
-			return "Issued Token is : "+issuedToken;
-		}
-		else
-		{
-			return "Parking is Full";
-		}
-	}
 
-	@GetMapping("/allToken")
-	public int allToken()
-	{
-		return securityService.getTotalTokenCount();
-	}
+
 	
 
 }

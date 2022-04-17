@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 public class Manager {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int managerId;
 
 	@Column(name = "firstName")

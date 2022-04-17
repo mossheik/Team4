@@ -66,11 +66,9 @@ public class ManagerController {
 			return managerService.generateBill(id);
 		}else
 		{
-			return "Only Entry Manager have Access!";
+			return "Only Exit Manager have Access!";
 		}
 		
 	}
 	
-	
-
 }

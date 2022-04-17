@@ -15,18 +15,21 @@ import com.cg.entity.Slot;
 @Repository
 public interface SlotRepository extends JpaRepository<Slot,Integer>{
 	
+	//Returns Last Slot in Slot table
 	public Slot findTopByOrderBySlotNoDesc();
 	
+	//Deletes Slot as per given slotNo
 	@Modifying 
-	@Query("delete from Slot slot where slot.slotNo=:slot")
-	public void deleteBySlotNo(@Param("slot") String slot);
+	@Query("delete from Slot slot where slot.slotNo=:slotNumber")
+	public void deleteBySlotNo(@Param("slotNumber") String slotNumber);
 
+	//Returns List of All Vacant/Available Slots
 	@Query("SELECT s FROM Slot s WHERE s.slotStatus = 'Vacant'")
 	public List<Slot> findAllAvailableSlot();
 	
-	
-	@Query("from Slot slot where slot.slotNo=:slot") 
-	public Slot findBySlotNo(@Param("slot") String slot);
+	//Return Slot as per SlotNo
+	@Query("from Slot slot where slot.slotNo=:slotNumber") 
+	public Slot findBySlotNo(@Param("slotNumber") String slotNumber);
 	
 	
 	
