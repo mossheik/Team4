@@ -8,19 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-<<<<<<< Updated upstream
-@Table(name = "admin")
-public class Admin {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-=======
 public class Admin extends Person {
-//  Removed security id as it is inheriting from Person
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
->>>>>>> Stashed changes
 
 	@Column(name = "F-Name")
 	private String firstName;
