@@ -8,12 +8,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+<<<<<<< Updated upstream
 @Table(name = "admin")
 public class Admin {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+=======
+public class Admin extends Person {
+//  Removed security id as it is inheriting from Person
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+>>>>>>> Stashed changes
 
 	@Column(name = "F-Name")
 	private String firstName;
@@ -31,26 +38,18 @@ public class Admin {
 	private int age;
 
 	public Admin() {
-
+		super();
 	}
 
-	public Admin(int id, String firstName, String lastName, String phoneNo, String address, int age) {
-		super();
-		this.id = id;
+	public Admin(String userName, String password, String firstName, String lastName, String phoneNo, String address,
+			int age) {
+		super(userName, password);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNo = phoneNo;
 		this.address = address;
 		this.age = age;
 
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getFirstName() {
