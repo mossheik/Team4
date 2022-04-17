@@ -4,9 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Person {
 
 	@Id
@@ -41,10 +43,10 @@ public class Person {
 		this.id = id;
 	}
 
-	public Person() {
+	protected Person() {
 	}
 
-	public Person(String userName, String password) {
+	protected Person(String userName, String password) {
 		super();
 		this.userName = userName;
 		this.password = password;

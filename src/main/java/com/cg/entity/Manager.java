@@ -5,14 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
-public class Manager {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int managerId;
+public class Manager extends Person{
 
 	@Column(name = "firstName")
 	private String firstName;
@@ -37,9 +32,8 @@ public class Manager {
 		super();
 	}
 
-	public Manager(int managerId, String firstName, String lastName, String address, String phoneNumber, double salary,String managerType) {
-		super();
-		this.managerId = managerId;
+	public Manager(String userName, String password, String firstName, String lastName, String address, String phoneNumber, double salary,String managerType) {
+		super(userName, password);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -49,11 +43,11 @@ public class Manager {
 	}
 
 	public int getManagerId() {
-		return managerId;
+		return id;
 	}
 
 	public void setManagerId(int managerId) {
-		this.managerId = managerId;
+		this.id = managerId;
 	}
 
 	public String getFirstName() {
@@ -107,7 +101,7 @@ public class Manager {
 
 	@Override
 	public String toString() {
-		return "Manager [managerId=" + managerId + ", firstName=" + firstName + ", lastName=" + lastName + ", address="
+		return "Manager [managerId=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", address="
 				+ address + ", phoneNumber=" + phoneNumber + ", salary=" + salary +"]";
 	}
 	

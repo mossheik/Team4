@@ -10,19 +10,19 @@ import javax.persistence.Table;
 @Entity
 public class Admin extends Person {
 
-	@Column(name = "F-Name")
+	@Column(name = "firstname")
 	private String firstName;
 
-	@Column(name = "L-Name")
+	@Column(name = "lastname")
 	private String lastName;
 
-	@Column(name = "Phone Number")
+	@Column(name = "phonenumber")
 	private String phoneNo;
 
-	@Column(name = "Address")
+	@Column(name = "address")
 	private String address;
 
-	@Column(name = "Age")
+	@Column(name = "age")
 	private int age;
 
 	public Admin() {
