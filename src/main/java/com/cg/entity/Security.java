@@ -5,40 +5,16 @@ import javax.persistence.Entity;
 
 @Entity
 public class Security extends Person {
-
+	@Column(name = "first_name")
 	private String firstName;
-
+	@Column(name = "last_name")
 	private String lastName;
-
-	@Column(name = "phoneNumber")
+	@Column(name = "phone_number")
 	private String phoneNumber;
-
 	@Column(name = "salary")
 	private double salary;
-
-	@Column(name = "securityType")
+	@Column(name = "security_type")
 	private String securityType;
-
-	public Security() {
-	}
-
-	public Security(String userName, String password, String firstName, String lastName, String phoneNumber,
-			double salary, String securityType) {
-		super(userName, password);
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phoneNumber = phoneNumber;
-		this.salary = salary;
-		this.securityType = securityType;
-	}
-
-	public int getSecurityId() {
-		return id;
-	}
-
-	public void setSecurityId(int id) {
-		this.id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -80,10 +56,17 @@ public class Security extends Person {
 		this.securityType = securityType;
 	}
 
-	@Override
-	public String toString() {
-		return "Security [securityId=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber="
-				+ phoneNumber + ", salary=" + salary + ", securityType=" + securityType + "]";
+	public Security() {
+	}
+
+	public Security(String email, String password, String firstName, String lastName, String phoneNumber, double salary,
+			String securityType, String role) {
+		super(email, password, role);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.salary = salary;
+		this.securityType = securityType;
 	}
 
 }

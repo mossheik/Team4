@@ -1,38 +1,51 @@
 package com.cg.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import lombok.Data;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Person {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected int id;
-	@Column(name = "username")
-	protected String userName;
+
+	@Column(name = "email")
+	protected String email;
+
 	@Column(name = "password")
 	protected String password;
 
-	public String getPassword() {
-		return password;
+	@Column(name = "role")
+	protected String role;
+
+	protected Person() {
 	}
 
-	public void setPassword(String password) {
+	protected Person(String email, String password, String role) {
+		this.email = email;
 		this.password = password;
+		this.role = role;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getRole() {
+		return role;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public int getId() {
@@ -43,12 +56,26 @@ public class Person {
 		this.id = id;
 	}
 
-	protected Person() {
+	public String getEmail() {
+		return email;
 	}
 
-	protected Person(String userName, String password) {
-		super();
-		this.userName = userName;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + "]";
+	}
+	
+	
 }

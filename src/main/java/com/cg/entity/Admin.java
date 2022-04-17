@@ -2,10 +2,6 @@ package com.cg.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 public class Admin extends Person {
@@ -24,21 +20,6 @@ public class Admin extends Person {
 
 	@Column(name = "age")
 	private int age;
-
-	public Admin() {
-		super();
-	}
-
-	public Admin(String userName, String password, String firstName, String lastName, String phoneNo, String address,
-			int age) {
-		super(userName, password);
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phoneNo = phoneNo;
-		this.address = address;
-		this.age = age;
-
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -80,10 +61,7 @@ public class Admin extends Person {
 		this.age = age;
 	}
 
-	@Override
-	public String toString() {
-		return "Admin [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNo=" + phoneNo
-				+ ", address=" + address + ", age=" + age + "]";
+	public Admin() {
+		super();
 	}
-
 }
