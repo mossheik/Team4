@@ -23,9 +23,6 @@ public class SecurityController {
 		} else {
 			return "Security Not Available";
 		}
-		
-	
-
 	}
 
 	@GetMapping("/returnHello")

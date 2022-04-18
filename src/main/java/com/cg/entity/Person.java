@@ -76,6 +76,4 @@ public class Person {
 	public String toString() {
 		return "Person [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + "]";
 	}
-	
-	
 }

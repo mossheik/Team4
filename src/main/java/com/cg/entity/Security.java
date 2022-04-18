@@ -56,19 +56,4 @@ public class Security extends Person {
 	public void setSecurityType(String securityType) {
 		this.securityType = securityType;
 	}
-
-	public Security() {
-	}
-
-	public Security(String email, String password, String firstName, String lastName, String phoneNumber, double salary,
-			String securityType, String role) {
-		super(email, password, role);
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phoneNumber = phoneNumber;
-		this.salary = salary;
-		this.securityType = securityType;
-	}
-
-
 }
