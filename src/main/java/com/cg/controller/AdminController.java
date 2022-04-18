@@ -17,7 +17,7 @@ import com.cg.service.AdminService;
 @RestController
 @RequestMapping(path = "/api/admin")
 public class AdminController {
-
+	// change @RequestBody to RequestParam for future work
 	@Autowired
 	private AdminService adminService;
 	

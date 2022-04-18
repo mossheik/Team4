@@ -1,7 +1,15 @@
 package com.cg.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+enum ManagerType {
+	ENTRY, EXIT
+}
 
 @Entity
 public class Manager extends Person {
@@ -22,7 +30,8 @@ public class Manager extends Person {
 	private double salary;
 
 	@Column(name = "managerType")
-	private String managerType;
+	@Enumerated(EnumType.STRING)
+	private ManagerType managerType;
 
 	public String getFirstName() {
 		return firstName;
@@ -64,12 +73,41 @@ public class Manager extends Person {
 		this.salary = salary;
 	}
 
-	public String getManagerType() {
+	public ManagerType getManagerType() {
 		return managerType;
 	}
 
-	public void setManagerType(String managerType) {
+	public void setManagerType(ManagerType managerType) {
 		this.managerType = managerType;
 	}
 
+	@Override
+	public String toString() {
+		return "Manager [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", phoneNumber="
+				+ phoneNumber + ", salary=" + salary + ", managerType=" + managerType + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(address, firstName, lastName, managerType, phoneNumber, salary);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Manager other = (Manager) obj;
+		return Objects.equals(address, other.address) && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(lastName, other.lastName) && managerType == other.managerType
+				&& Objects.equals(phoneNumber, other.phoneNumber)
+				&& Double.doubleToLongBits(salary) == Double.doubleToLongBits(other.salary);
+	}	
+	
 }

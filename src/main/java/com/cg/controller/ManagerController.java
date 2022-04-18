@@ -47,6 +47,7 @@ public class ManagerController {
 	}
 	
 	@GetMapping("/{managerType}/genReceipt/{id}")
+	// change name to entryBill, exitBill respectively
 	public String getReceipt(@PathVariable("managerType") String managerType,@PathVariable("id") int id)
 	{
 		if(managerType.equals("entryManager"))
