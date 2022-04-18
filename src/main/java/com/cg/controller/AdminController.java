@@ -56,7 +56,7 @@ public class AdminController {
 		return adminService.updateSlot(slotNo,type);
 	}
 	@PutMapping("/rangeChange/{start}/{end}/{type}")
-	public String rangechangeSlot(@PathVariable("start") String start,@PathVariable("end") int end, @PathVariable("type") String type ) {
+	public String rangechangeSlot(@PathVariable("start") String start,@PathVariable("end") String end, @PathVariable("type") String type ) {
 		return adminService.rangeChangeStatusSlot(start, end, type);
 	}
 }
