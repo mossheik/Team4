@@ -174,31 +174,36 @@ public class AdminService {
 	
 	
 	// Updating Slot Type for a Given Range
-	public String rangeChangeStatusSlot(String slotPos,int range,String type) {
+	public String rangeChangeStatusSlot(String start,String end,String type) {
 		
 		Slot s =new Slot();
-		char l = slotPos.charAt(0);
-		String ls = slotPos.substring(1);
-		int lst = Integer.parseInt(ls);
-		String val = l+"";
-		int c = lst;
+		// Extracting start string
+		char ch1 = start.charAt(0); // A,B,C
+		String str1 = start.substring(1);  //01,02,03
+		int val1 = Integer.parseInt(str1);
+		String val2 = ch1+"";
+		int count = val1;
+		
+		// Extracting end string
+		String str2 = end.substring(1);
+		int val3 = Integer.parseInt(str2);
 		
 		//Setting Updated Slot Status and save Slot
-		for(int i=lst;i<=range+lst;i++) {
+		for(int i=val1;i<=val3;i++) {
 			
 			if(i %20 ==0) {
-				l = (char)(l+1);
-				val="";
-				val = Character.toString(l);
-				c=1;
+				ch1 = (char)(ch1+1);
+				val2="";
+				val2 = Character.toString(ch1);
+				count=1;
 			}
-			if(c<10) {
-				s.setSlotNo(val+"0"+c);
+			if(count<10) {
+				s.setSlotNo(val2+"0"+count);
 				}
 			else {
-					s.setSlotNo(val+c);
+					s.setSlotNo(val2+count);
 				}
-				c++;
+				count++;
 				s.setSlotStatus(type);
 				slotRepository.save(s);
 			
