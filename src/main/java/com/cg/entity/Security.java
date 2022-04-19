@@ -1,7 +1,15 @@
 package com.cg.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+enum Type {
+	ENTRY, CHECK;
+}
 
 @Entity
 public class Security extends Person {
@@ -13,8 +21,10 @@ public class Security extends Person {
 	private String phoneNumber;
 	@Column(name = "salary")
 	private double salary;
+
 	@Column(name = "security_type")
-	private String securityType;
+	@Enumerated(EnumType.STRING)
+	private Type securityType;
 
 	public String getFirstName() {
 		return firstName;
@@ -32,7 +42,6 @@ public class Security extends Person {
 		this.lastName = lastName;
 	}
 
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -49,11 +58,41 @@ public class Security extends Person {
 		this.salary = salary;
 	}
 
-	public String getSecurityType() {
+	public Type getSecurityType() {
 		return securityType;
 	}
 
-	public void setSecurityType(String securityType) {
+	public void setSecurityType(Type securityType) {
 		this.securityType = securityType;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(firstName, lastName, phoneNumber, salary, securityType);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Security other = (Security) obj;
+		return Objects.equals(firstName, other.firstName) && Objects.equals(lastName, other.lastName)
+				&& Objects.equals(phoneNumber, other.phoneNumber)
+				&& Double.doubleToLongBits(salary) == Double.doubleToLongBits(other.salary)
+				&& securityType == other.securityType;
+	}
+
+	@Override
+	public String toString() {
+		return "Security [firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber
+				+ ", salary=" + salary + ", securityType=" + securityType + "]";
+	}
+
 }

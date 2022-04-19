@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.cg.entity.Customer;
 import com.cg.entity.Slot;
-import com.cg.entity.Token;
 import com.cg.repository.CustomerRepository;
 import com.cg.repository.SlotRepository;
 
@@ -58,14 +57,14 @@ public class CustomerService{
 		Slot s=slotRepository.findBySlotNo(slotNo);
 
 		//Check Slot is 'Vacant' or Not
-		if(s.getSlotStatus().equalsIgnoreCase("Vacant"))
+		if(s.getSlotStatus().toString().equalsIgnoreCase("VACANT"))
 		{
 			//Setting Slot
 			customer.setSlotNo(slotNo);
 			
 			//Getting Slot and Changing Status to 'Vacant'
 			Slot slot=slotRepository.findBySlotNo(slotNo);
-			slot.setSlotStatus("Occupied");
+			slot.setSlotStatus("OCCUPIED");
 			
 			//Save Customer
 			customerRepository.save(customer);
