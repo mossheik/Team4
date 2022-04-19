@@ -15,12 +15,12 @@ enum Type {
 public class Security extends Person {
 	@Column(name = "first_name")
 	private String firstName;
+	
 	@Column(name = "last_name")
 	private String lastName;
+	
 	@Column(name = "phone_number")
 	private String phoneNumber;
-	@Column(name = "salary")
-	private double salary;
 
 	@Column(name = "security_type")
 	@Enumerated(EnumType.STRING)
@@ -50,14 +50,6 @@ public class Security extends Person {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public double getSalary() {
-		return salary;
-	}
-
-	public void setSalary(double salary) {
-		this.salary = salary;
-	}
-
 	public Type getSecurityType() {
 		return securityType;
 	}
@@ -67,10 +59,16 @@ public class Security extends Person {
 	}
 
 	@Override
+	public String toString() {
+		return "Security [firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber
+				+ ", securityType=" + securityType + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(firstName, lastName, phoneNumber, salary, securityType);
+		result = prime * result + Objects.hash(firstName, lastName, phoneNumber, securityType);
 		return result;
 	}
 
@@ -84,15 +82,9 @@ public class Security extends Person {
 			return false;
 		Security other = (Security) obj;
 		return Objects.equals(firstName, other.firstName) && Objects.equals(lastName, other.lastName)
-				&& Objects.equals(phoneNumber, other.phoneNumber)
-				&& Double.doubleToLongBits(salary) == Double.doubleToLongBits(other.salary)
-				&& securityType == other.securityType;
+				&& Objects.equals(phoneNumber, other.phoneNumber) && securityType == other.securityType;
 	}
 
-	@Override
-	public String toString() {
-		return "Security [firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber
-				+ ", salary=" + salary + ", securityType=" + securityType + "]";
-	}
+	
 
 }
