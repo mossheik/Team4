@@ -4,15 +4,15 @@
 ----------------------------------
 Receipt Details
 ----------------------------------
-Bill Id : 4
-Date : 2022-04-16
+Receipt Id : 1
+Date : 2022-04-19
 ----------------------------------
 Customer Details
 ----------------------------------
-Customer Id : 2
-Name : Sam
-Phone Number : 9977898989
-Vehicle Number : MH33ZY6788
+Customer Id : 1
+Name : aditya
+Phone Number : 97687
+Vehicle Number : MH 50
 Token Number : true
-Parking Position : A11
-Entry Time : 15:31:28
+Parking Position : A10
+Entry Time : 17:23:16

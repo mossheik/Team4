@@ -27,15 +27,15 @@ public class CustomerController {
 	@GetMapping("/{securityType}/issueToken/{customerId}")
 	public String getToken(@PathVariable("securityType") String securityType,@PathVariable("customerId") int customerId)
 	{
-		if(securityType.equalsIgnoreCase("PrimarySecurity"))
+		if(securityType.equalsIgnoreCase("ENTRY"))
 		{
 			return customerService.getToken(customerId);
-		}else if(securityType.equalsIgnoreCase("SecondarySecurity"))
+		}else if(securityType.equalsIgnoreCase("CHECK"))
 		{
-			return "Only Primary Security can issue Token!";
+			return "Only ENTRY security can issue Token!";
 		}
 		else {
-			return "Primary Security is not available!";
+			return "ENTRY security is not available!";
 		}
 		
 	}

@@ -21,12 +21,11 @@ public class ManagerController {
 	@GetMapping("/{managerType}/allSlot")
 	public List<Slot> getAllPosition(@PathVariable("managerType") String managerType)
 	{
-		if(managerType.equals("entryManager"))
+		if(managerType.equals("ENTRY"))
 		{
 			return managerService.getAllParkingSlots();
 		}else
 		{
-		//	return "Only Entry Manager have Access!";
 		}
 		return null;
 		
@@ -35,7 +34,7 @@ public class ManagerController {
 	@GetMapping("/{managerType}/availableSlot")
 	public List<Slot> getAvailablePosition(@PathVariable("managerType") String managerType)
 	{
-		if(managerType.equals("entryManager"))
+		if(managerType.equals("ENTRY"))
 		{
 			return managerService.showAvailableParkingSlots();
 		}else
@@ -50,7 +49,7 @@ public class ManagerController {
 	// change name to entryBill, exitBill respectively
 	public String getReceipt(@PathVariable("managerType") String managerType,@PathVariable("id") int id)
 	{
-		if(managerType.equals("entryManager"))
+		if(managerType.equals("ENTRY"))
 		{
 			return managerService.generateReceipt(id);
 		}else
@@ -63,7 +62,7 @@ public class ManagerController {
 	@GetMapping("/{managerType}/genBill/{id}")
 	public String getBill(@PathVariable("managerType") String managerType,@PathVariable("id") int id)
 	{
-		if(managerType.equals("exitManager"))
+		if(managerType.equals("EXIT"))
 		{
 			return managerService.generateBill(id);
 		}else

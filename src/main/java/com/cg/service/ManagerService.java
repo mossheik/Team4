@@ -19,7 +19,7 @@ import com.cg.repository.CustomerRepository;
 import com.cg.repository.SlotRepository;
 
 @Service
-public class ManagerService{
+public class ManagerService {
 
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -30,41 +30,36 @@ public class ManagerService{
 	@Autowired
 	private SlotRepository slotRepository;
 
-
-	//Display All Added Parking Slots
-	public List<Slot> getAllParkingSlots()
-	{
+	// Display All Added Parking Slots
+	public List<Slot> getAllParkingSlots() {
 		return slotRepository.findAll();
 	}
 
-	//Display All Vacant/Available Parking Slots
-	public List<Slot> showAvailableParkingSlots()
-	{
+	// Display All Vacant/Available Parking Slots
+	public List<Slot> showAvailableParkingSlots() {
 		return slotRepository.findAllAvailableSlot();
 	}
 
-	//Add Customer in Bill Table and Generate Receipt
-	public String generateReceipt(int customerId)
-	{
-		////Check whether customerId is available or not
-		if(customerRepository.existsById(customerId))
-		{
-			//Getting Customer Details by Id
-			Customer customer=customerRepository.findById(customerId).get();
+	// Add Customer in Bill Table and Generate Receipt
+	public String generateReceipt(int customerId) {
+		//// Check whether customerId is available or not
+		if (customerRepository.existsById(customerId)) {
+			// Getting Customer Details by Id
+			Customer customer = customerRepository.findById(customerId).get();
 
-			//Creating new Bill Object
+			// Creating new Bill Object
 			Bill receipt = new Bill();
 
-			//Setting Receipt Details
+			// Setting Receipt Details
 			receipt.setCustomer(customer);
-			receipt.setDate(LocalDate.now());	
-			receipt.setEntryTime(LocalTime.now().truncatedTo(ChronoUnit.SECONDS));		
+			receipt.setDate(LocalDate.now());
+			receipt.setEntryTime(LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
 			receipt.setSlotNo(receipt.getCustomer().getSlotNo());
 
-			//Saving Receipt Details in Bill Table
+			// Saving Receipt Details in Bill Table
 			billRepository.save(receipt);
 
-			//Generating Receipt File
+			// Generating Receipt File
 			try {
 				FileWriter receiptFile = new FileWriter("Receipt.txt");
 				receiptFile.append("\t\t==================================");
@@ -79,29 +74,29 @@ public class ManagerService{
 				receiptFile.append("\n");
 				receiptFile.append("----------------------------------");
 				receiptFile.append("\n");
-				receiptFile.append("Receipt Id : "+receipt.getBillId());
+				receiptFile.append("Receipt Id : " + receipt.getBillId());
 				receiptFile.append("\n");
-				receiptFile.append("Date : "+receipt.getDate());
-				receiptFile.append("\n");
-				receiptFile.append("----------------------------------");
-				receiptFile.append("\n");
-				receiptFile.append("Customer Details");		
+				receiptFile.append("Date : " + receipt.getDate());
 				receiptFile.append("\n");
 				receiptFile.append("----------------------------------");
 				receiptFile.append("\n");
-				receiptFile.append("Customer Id : "+customer.getCustomerId());
+				receiptFile.append("Customer Details");
 				receiptFile.append("\n");
-				receiptFile.append("Name : "+customer.getName());
+				receiptFile.append("----------------------------------");
 				receiptFile.append("\n");
-				receiptFile.append("Phone Number : "+customer.getPhoneNumber());
+				receiptFile.append("Customer Id : " + customer.getCustomerId());
 				receiptFile.append("\n");
-				receiptFile.append("Vehicle Number : "+customer.getVehicleNumber());
+				receiptFile.append("Name : " + customer.getName());
 				receiptFile.append("\n");
-				receiptFile.append("Token Number : "+customer.isHasToken());
+				receiptFile.append("Phone Number : " + customer.getPhoneNumber());
 				receiptFile.append("\n");
-				receiptFile.append("Parking Position : "+customer.getSlotNo());
-				receiptFile.append("\n");	
-				receiptFile.append("Entry Time : "+receipt.getEntryTime());
+				receiptFile.append("Vehicle Number : " + customer.getVehicleNumber());
+				receiptFile.append("\n");
+				receiptFile.append("Token Number : " + customer.isHasToken());
+				receiptFile.append("\n");
+				receiptFile.append("Parking Position : " + customer.getSlotNo());
+				receiptFile.append("\n");
+				receiptFile.append("Entry Time : " + receipt.getEntryTime());
 				receiptFile.append("\n");
 				receiptFile.close();
 
@@ -109,42 +104,38 @@ public class ManagerService{
 				e.printStackTrace();
 			}
 			return "Receipt Generated";
-		}else
-		{
+		} else {
 			return "Customer Id is wrong or Customer Does not Exists!";
 		}
 	}
 
-	//Generate Final Bill with Amount
+	// Generate Final Bill with Amount
 	public String generateBill(int billId) {
 
-		//Check whether billId is available or not
-		if(billRepository.existsById(billId))
-		{
-			//Getting Bill Details by billId
+		// Check whether billId is available or not
+		if (billRepository.existsById(billId)) {
+			// Getting Bill Details by billId
 			Bill bill = billRepository.findById(billId).get();
 
-			//Setting Details
+			// Setting Details
 			bill.setExitTime(LocalTime.now());
-			double finalBillAmount=60.0;
-			long diffTotalDuration=ChronoUnit.HOURS.between(bill.getEntryTime(), bill.getExitTime());
+			double finalBillAmount = 60.0;
+			long diffTotalDuration = ChronoUnit.HOURS.between(bill.getEntryTime(), bill.getExitTime());
 
-			//Check for Duration : If 0 assign 1
-			if(diffTotalDuration<1)
-			{
+			// Check for Duration : If 0 assign 1
+			if (diffTotalDuration < 1) {
 				bill.setTotalDuration(1);
 				bill.setAmount(finalBillAmount);
-			}
-			else {
+			} else {
 				bill.setTotalDuration(diffTotalDuration);
-				finalBillAmount=60*(double)diffTotalDuration;
+				finalBillAmount = 60 * (double) diffTotalDuration;
 				bill.setAmount(finalBillAmount);
 			}
 
-			//Saving Bill Details in Bill Table
+			// Saving Bill Details in Bill Table
 			billRepository.save(bill);
 
-			//Generating Final Bill in File
+			// Generating Final Bill in File
 			try {
 				FileWriter finalBill = new FileWriter("Bill.txt");
 				finalBill.append("\t\t==================================");
@@ -177,9 +168,9 @@ public class ManagerService{
 				finalBill.append("\n");
 				finalBill.append("Vehicle Number : " + bill.getCustomer().getVehicleNumber());
 				finalBill.append("\n");
-				finalBill.append("Token Number : "+bill.getCustomer().isHasToken());
+				finalBill.append("Token Number : " + bill.getCustomer().isHasToken());
 				finalBill.append("\n");
-				finalBill.append("Parking Position : "+bill.getCustomer().getSlotNo());
+				finalBill.append("Parking Position : " + bill.getCustomer().getSlotNo());
 				finalBill.append("\n");
 				finalBill.append("Entry Time : " + bill.getEntryTime());
 				finalBill.append("\n");
@@ -198,39 +189,37 @@ public class ManagerService{
 
 				finalBill.close();
 
-				//Getting Customer details by Id from bill
-				Customer customer=customerRepository.getById(bill.getCustomer().getCustomerId());
+				// Getting Customer details by Id from bill
+				Customer customer = customerRepository.getById(bill.getCustomer().getCustomerId());
 
-				//Calling Customer Exit to reset Values
+				// Calling Customer Exit to reset Values
 				customerExit(customer);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			return "Bill generated";
-		}else
-		{
+		} else {
 			return "Receipt Not Generated or Entered Bill Id is Wrong!";
 		}
 	}
 
-	//Customer Exit
-	public void customerExit(Customer customer)
-	{
-		//Setting Customer hasToken to False and Increment token
+	// Customer Exit
+	public void customerExit(Customer customer) {
+		// Setting Customer hasToken to False and Increment token
 		customer.setHasToken(false);
 		Token.tokenCount++;
 
-		//Getting Customer SlotNo
-		String customersSlot=customer.getSlotNo();
+		// Getting Customer SlotNo
+		String customersSlot = customer.getSlotNo();
 
-		//Getting Slot using customerSlot and Setting Vacant
-		Slot s=slotRepository.findBySlotNo(customersSlot);
-		s.setSlotStatus("Vacant");
+		// Getting Slot using customerSlot and Setting Vacant
+		Slot s = slotRepository.findBySlotNo(customersSlot);
+		s.setSlotStatus("VACANT");
 
-		//Setting Customer slotNo to Null
+		// Setting Customer slotNo to Null
 		customer.setSlotNo(null);
 
-		//Saving Slot in Slot Table
+		// Saving Slot in Slot Table
 		slotRepository.save(s);
 	}
 
