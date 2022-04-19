@@ -1,7 +1,7 @@
 package com.cg.service;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import com.cg.entity.Manager;
 import com.cg.entity.Security;
@@ -13,12 +13,11 @@ import com.cg.repository.SecurityRepository;
 import com.cg.repository.SlotRepository;
 import com.cg.repository.TokenRepository;
 
-
 @Service
 
 public class AdminService {
-	
-	@Autowired 
+
+	@Autowired
 	public AdminRepository adminRepository;
 	@Autowired
 	private SecurityRepository securityRepository;
@@ -29,26 +28,25 @@ public class AdminService {
 	@Autowired
 	private TokenRepository tokenRepository;
 
-	
-	//Adding Security
+	// Adding Security
 	public String addSecurity(Security security) {
 		securityRepository.save(security);
 		return "Security Added Succesfully";
 	}
-	
-	//Removing Security
+
+	// Removing Security
 	public String removeSecurity(int securityId) {
 		securityRepository.deleteById(securityId);
 		return "Security Deleted Succesfully";
 	}
-	
-	//Adding Manager
+
+	// Adding Manager
 	public String addManager(Manager manager) {
 		managerRepository.save(manager);
 		return "Manager Added Succesfully";
 	}
-	
-	//Removing Manager
+
+	// Removing Manager
 	public String removeManager(int managerId) {
 		managerRepository.deleteById(managerId);
 		return "Manager Deleted Succesfully";
@@ -91,10 +89,18 @@ public class AdminService {
 					}
 					s.setSlotStatus(type);
 					slotRepository.save(s);
-					
 				}
-				
-				return totalSlot+" Slots Added Succesfully";
+				if (counter < 10) {
+					s.setSlotNo(var1 + "0" + counter);
+				} else {
+					s.setSlotNo(var1 + counter);
+				}
+				s.setSlotStatus(type);
+				slotRepository.save(s);
+
+			}
+
+			return totalSlot + " Slots Added Succesfully";
 		}
 		//Extending Slots
 		else if(status.equals("Insert") || status.equals("insert")) {
@@ -133,17 +139,23 @@ public class AdminService {
 					}
 					s.setSlotStatus(type);
 					slotRepository.save(s);
-					
 				}
-			return totalSlot+" Slots Inserted Succesfully";
+				if (c < 10) {
+					s.setSlotNo(val + "0" + c);
+				} else {
+					s.setSlotNo(val + c);
+				}
+				s.setSlotStatus(type);
+				slotRepository.save(s);
+
+			}
+			return totalSlot + " Slots Inserted Succesfully";
 
 		}
 		return "Please Choose Correct Status";
 
-	
 	}
-	
-	//Remove Slot
+
 	public String removeSlot(int decr,String slotPos) {
 		
 		//Decrementing Token as per Slots
@@ -152,48 +164,46 @@ public class AdminService {
 		token.setTokenCount(tokenCount);
 		tokenRepository.save(token);
 				
+
 		char l = slotPos.charAt(0);
 		String ls = slotPos.substring(1);
 		int lst = Integer.parseInt(ls);
-		String val = l+"";
+		String val = l + "";
 		int c = lst;
-		for(int i=lst;i<decr+lst;i++) {
-			if(i %20 ==0) {
-				l = (char)(l+1);
-				val="";
+		for (int i = lst; i < decr + lst; i++) {
+			if (i % 20 == 0) {
+				l = (char) (l + 1);
+				val = "";
 				val = Character.toString(l);
-				c=1;
+				c = 1;
 			}
-			if(c<10) {
-				slotPos = val+"0"+c;
+			if (c < 10) {
+				slotPos = val + "0" + c;
+			} else {
+				slotPos = val + c;
 			}
-			else {
-				slotPos = val+c;
-			}
-			//Deleting Slot
+			// Deleting Slot
 			slotRepository.deleteBySlotNo(slotPos);
 			c++;
 		}
-		
-		
+
 		return "Removed Succesfully";
 	}
-	
-	
+
 	// For Updating Type at any slot Position
-	public String updateSlot(String slotPos,String status) {
-		Slot s =new Slot();
-		
-		//Setting Updated Details
+	public String updateSlot(String slotPos, String status) {
+		Slot s = new Slot();
+
+		// Setting Updated Details
 		s.setSlotNo(slotPos);
 		s.setSlotStatus(status);
-		
+
 		slotRepository.save(s);
 		return "Update Succesfully";
 	}
-	
-	
+
 	// Updating Slot Type for a Given Range
+
 	public String rangeChangeStatusSlot(String slotPos,int range,String type) {
 		
 		//Updating Token as per Slots
@@ -218,18 +228,16 @@ public class AdminService {
 				val = Character.toString(l);
 				c=1;
 			}
-			if(c<10) {
-				s.setSlotNo(val+"0"+c);
-				}
-			else {
-					s.setSlotNo(val+c);
-				}
-				c++;
-				s.setSlotStatus(type);
-				slotRepository.save(s);
-			
+			if (count < 10) {
+				s.setSlotNo(val2 + "0" + count);
+			} else {
+				s.setSlotNo(val2 + count);
+			}
+			count++;
+			s.setSlotStatus(type);
+			slotRepository.save(s);
+
 		}
 		return "Status updated";
 	}
 }
-

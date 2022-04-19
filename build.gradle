@@ -22,9 +22,12 @@ dependencies {
 	// Spring Security
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.6.6'
-	// lombok
-	// https://mvnrepository.com/artifact/org.projectlombok/lombok
-	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+	// swagger
+	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+	// implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+	// swagger-ui
+	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+	// implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
 	implementation "io.springfox:springfox-swagger2:2.9.2"
 	implementation 'io.springfox:springfox-swagger-ui:2.6.0'
 

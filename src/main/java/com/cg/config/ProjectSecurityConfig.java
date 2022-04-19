@@ -10,7 +10,7 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().ignoringAntMatchers("/api/**")
 		.and().authorizeRequests()
-		.antMatchers("api/customer").permitAll()
+		.antMatchers("/api/customer").permitAll()
 		.antMatchers("/api/admin/**").hasRole("ADMIN")
 		.antMatchers("/api/security/**").hasRole("SECURITY")
 		.and().formLogin().and().httpBasic();
