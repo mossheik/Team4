@@ -42,9 +42,9 @@ public class AdminController {
 		return adminService.removeManager(id);
 	}
 	
-	@GetMapping("/addAllSlot/{status}/{totalSlotCount}/{type}")
-	public String addParking(@PathVariable("status") String status,@PathVariable("totalSlotCount") int totalSlotCount,@PathVariable("type") String type){
-	return adminService.addSlot(totalSlotCount,type,status);
+	@GetMapping("/addAllSlot/{mode}/{totalSlotCount}/{type}")
+	public String addParking(@PathVariable("mode") String mode,@PathVariable("totalSlotCount") int totalSlotCount,@PathVariable("type") String type){
+	return adminService.addSlot(totalSlotCount,type,mode);
 	}
 	
 	@DeleteMapping("/deleteSlot/{decr}/{start}")

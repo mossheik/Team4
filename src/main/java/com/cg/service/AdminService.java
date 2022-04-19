@@ -50,7 +50,7 @@ public class AdminService {
 	}
 
 	// Adding Parking Slots
-	public String addSlot(int totalSlot, String type, String status) {
+	public String addSlot(int totalSlot, String type, String mode) {
 
 		Slot s = new Slot();
 
@@ -58,7 +58,7 @@ public class AdminService {
 		Token.tokenCount = Token.tokenCount + totalSlot;
 
 		// Creating Slots
-		if (status.equals("Create") || status.equals("create")) {
+		if (mode.equals("Create") || mode.equals("create")) {
 			char var = 'A';
 			String var1 = "A";
 			int counter = 0;
@@ -86,7 +86,7 @@ public class AdminService {
 			return totalSlot + " Slots Added Succesfully";
 		}
 		// Extending Slots
-		else if (status.equals("Insert") || status.equals("insert")) {
+		else if (mode.equals("Insert") || mode.equals("insert")) {
 
 			// Getting Last slotNo
 			Slot lastSlotRepo = slotRepository.findTopByOrderBySlotNoDesc();
