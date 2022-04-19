@@ -17,6 +17,7 @@ import com.cg.entity.Token;
 import com.cg.repository.BillRepository;
 import com.cg.repository.CustomerRepository;
 import com.cg.repository.SlotRepository;
+import com.cg.repository.TokenRepository;
 
 @Service
 public class ManagerService{
@@ -29,6 +30,10 @@ public class ManagerService{
 
 	@Autowired
 	private SlotRepository slotRepository;
+	
+	@Autowired
+	private TokenRepository tokenRepository;
+	
 
 
 	//Display All Added Parking Slots
@@ -218,7 +223,9 @@ public class ManagerService{
 	{
 		//Setting Customer hasToken to False and Increment token
 		customer.setHasToken(false);
-		Token.tokenCount++;
+		Token token = tokenRepository.findById(1).get();
+		token.setTokenCount(token.getTokenCount()+1);
+		tokenRepository.save(token);
 
 		//Getting Customer SlotNo
 		String customersSlot=customer.getSlotNo();

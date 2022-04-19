@@ -9,6 +9,7 @@ import com.cg.entity.Token;
 import com.cg.repository.BillRepository;
 import com.cg.repository.CustomerRepository;
 import com.cg.repository.SecurityRepository;
+import com.cg.repository.TokenRepository;
 
 
 @Service
@@ -20,30 +21,33 @@ public class SecurityService extends Token{
 	@Autowired
 	private BillRepository billRepository;
 
-	//Set Token Count
-	public int setToken(int tokenCount)
-	{
-		Token.setTokenCount(tokenCount);
-		return Token.tokenCount;
-	}
+	@Autowired
+	private TokenRepository tokenRepository;
 
 	//Get Total Available Token Count
 	public String getTotalTokenCount()
 	{
-		return "All Available Token : "+Token.tokenCount;  
+		Token token = tokenRepository.findById(1).get();
+		return "All Available Token : "+token.getTokenCount();
 	}
 
 	//Issue Token to Customer
 	public boolean issueToken()
 	{
-		if(Token.tokenCount>0)
+		Token token = tokenRepository.findById(1).get();
+		int tokenCount=token.getTokenCount();
+		
+		if(tokenCount>0)
 		{
-			Token.tokenCount--;
+			token.setTokenCount(token.getTokenCount()-1);
+			tokenRepository.save(token);
 			return true;
 		}else
 		{
 			return false;
 		}
+		
+
 
 	}
 
@@ -61,6 +65,14 @@ public class SecurityService extends Token{
 			return false;
 		}
 	}
-
+	
+	//Set Token Count if needed
+		public int setToken(int tokenCount)
+		{
+			Token token = tokenRepository.findById(1).get();
+			token.setTokenCount(tokenCount);
+			tokenRepository.save(token);
+			return token.getTokenCount();
+		}
 
 }

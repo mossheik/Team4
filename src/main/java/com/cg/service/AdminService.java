@@ -11,6 +11,7 @@ import com.cg.repository.AdminRepository;
 import com.cg.repository.ManagerRepository;
 import com.cg.repository.SecurityRepository;
 import com.cg.repository.SlotRepository;
+import com.cg.repository.TokenRepository;
 
 
 @Service
@@ -25,6 +26,8 @@ public class AdminService {
 	private ManagerRepository managerRepository;
 	@Autowired
 	private SlotRepository slotRepository;
+	@Autowired
+	private TokenRepository tokenRepository;
 
 	
 	//Adding Security
@@ -55,12 +58,16 @@ public class AdminService {
 	public String addSlot(int totalSlot,String type,String status) {
 		
 		Slot s= new Slot();
-		
-		//Generating Token as per Slots
-		Token.tokenCount=Token.tokenCount+totalSlot;
+
 		
 		//Creating Slots
 		if(status.equals("Create") || status.equals("create")) {
+			
+				//Generating Token as per Slots
+				Token token=new Token();
+				token.setTokenCount(totalSlot);
+				tokenRepository.save(token);
+			
 				char var = 'A';
 				String var1="A";
 				int counter =0;
@@ -92,6 +99,12 @@ public class AdminService {
 		//Extending Slots
 		else if(status.equals("Insert") || status.equals("insert")) {
 			
+				//Updating Token Count
+				Token token = tokenRepository.findById(1).get();
+				int tokenCount=token.getTokenCount()+totalSlot;
+				token.setTokenCount(tokenCount);
+				tokenRepository.save(token);
+				
 				//Getting Last slotNo
 				Slot lastSlotRepo = slotRepository.findTopByOrderBySlotNoDesc();
 				String lastSlot = lastSlotRepo.getSlotNo();
@@ -132,6 +145,13 @@ public class AdminService {
 	
 	//Remove Slot
 	public String removeSlot(int decr,String slotPos) {
+		
+		//Decrementing Token as per Slots
+		Token token = tokenRepository.findById(1).get();
+		int tokenCount=token.getTokenCount()-decr;
+		token.setTokenCount(tokenCount);
+		tokenRepository.save(token);
+				
 		char l = slotPos.charAt(0);
 		String ls = slotPos.substring(1);
 		int lst = Integer.parseInt(ls);
@@ -175,6 +195,12 @@ public class AdminService {
 	
 	// Updating Slot Type for a Given Range
 	public String rangeChangeStatusSlot(String slotPos,int range,String type) {
+		
+		//Updating Token as per Slots
+		Token token = tokenRepository.findById(1).get();
+		int tokenCount=token.getTokenCount()+range;
+		token.setTokenCount(tokenCount);
+		tokenRepository.save(token);
 		
 		Slot s =new Slot();
 		char l = slotPos.charAt(0);
