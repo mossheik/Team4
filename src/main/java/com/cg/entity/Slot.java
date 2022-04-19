@@ -8,13 +8,13 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
+
 @Entity
 public class Slot {
 
 	@Id
 	@Column(name = "slotNo")
 	private String slotNo;
-	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "slotStatus")
 	private SlotStatus slotStatus;

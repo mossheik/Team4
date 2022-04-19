@@ -26,6 +26,9 @@ public class Manager extends Person {
 	@Column(name = "phoneNumber")
 	private String phoneNumber;
 
+	@Column(name = "salary")
+	private double salary;
+
 	@Column(name = "managerType")
 	@Enumerated(EnumType.STRING)
 	private ManagerType managerType;
@@ -62,6 +65,14 @@ public class Manager extends Person {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
 	public ManagerType getManagerType() {
 		return managerType;
 	}
@@ -70,19 +81,17 @@ public class Manager extends Person {
 		this.managerType = managerType;
 	}
 
-	
-
 	@Override
 	public String toString() {
 		return "Manager [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", phoneNumber="
-				+ phoneNumber + ", managerType=" + managerType + "]";
+				+ phoneNumber + ", salary=" + salary + ", managerType=" + managerType + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(address, firstName, lastName, managerType, phoneNumber);
+		result = prime * result + Objects.hash(address, firstName, lastName, managerType, phoneNumber, salary);
 		return result;
 	}
 
@@ -97,9 +106,8 @@ public class Manager extends Person {
 		Manager other = (Manager) obj;
 		return Objects.equals(address, other.address) && Objects.equals(firstName, other.firstName)
 				&& Objects.equals(lastName, other.lastName) && managerType == other.managerType
-				&& Objects.equals(phoneNumber, other.phoneNumber);
-	}
-
-	
+				&& Objects.equals(phoneNumber, other.phoneNumber)
+				&& Double.doubleToLongBits(salary) == Double.doubleToLongBits(other.salary);
+	}	
 	
 }

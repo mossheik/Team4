@@ -13,7 +13,7 @@ import com.cg.service.CustomerService;
 
 
 @RestController
-@RequestMapping(path = "/api/customer")
+@RequestMapping(path = "/api/")
 public class CustomerController {
 	
 	@Autowired

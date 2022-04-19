@@ -53,34 +53,27 @@ public class CustomerService{
 		//Get Customer Details by Id
 		Customer customer=customerRepository.findById(customerid).get();
 
-		if(customer.isHasToken()==true)
+		//Get Slot by SlotNo
+		Slot s=slotRepository.findBySlotNo(slotNo);
+
+		//Check Slot is 'Vacant' or Not
+		if(s.getSlotStatus().toString().equalsIgnoreCase("VACANT"))
 		{
-			//Get Slot by SlotNo
-			Slot s=slotRepository.findBySlotNo(slotNo);
-	
-			//Check Slot is 'Vacant' or Not
-			if(s.getSlotStatus().toString().equalsIgnoreCase("VACANT"))
-			{
-				//Setting Slot
-				customer.setSlotNo(slotNo);
-				
-				//Getting Slot and Changing Status to 'Vacant'
-				Slot slot=slotRepository.findBySlotNo(slotNo);
-				slot.setSlotStatus("OCCUPIED");
-				
-				//Save Customer
-				customerRepository.save(customer);
-				
-				return customer.getCustomerId()+" is Alloted to "+slot.getSlotNo();
-				
-			}else
-			{
-				return "Slot is "+s.getSlotStatus();
-			}
-				
+			//Setting Slot
+			customer.setSlotNo(slotNo);
+			
+			//Getting Slot and Changing Status to 'Vacant'
+			Slot slot=slotRepository.findBySlotNo(slotNo);
+			slot.setSlotStatus("OCCUPIED");
+			
+			//Save Customer
+			customerRepository.save(customer);
+			
+			return customer.getCustomerId()+" is Alloted to "+slot.getSlotNo();
+			
 		}else
 		{
-			return "Customer ID  : "+customer.getCustomerId()+" does not have Token!";
+			return "Slot is "+s.getSlotStatus();
 		}
 
 	}
