@@ -8,5 +8,5 @@ import com.cg.entity.Security;
 
 @Repository
 public interface SecurityRepository extends JpaRepository<Security, Integer> {
-
+	
 }

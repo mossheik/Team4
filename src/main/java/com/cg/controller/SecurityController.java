@@ -1,6 +1,5 @@
 package com.cg.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,20 +15,11 @@ public class SecurityController {
 	@Autowired
 	private SecurityService securityService;
 
-	@GetMapping("/{securityType}/allToken")
-	public String allToken(@PathVariable("securityType") String securityType) {
-		if (securityType.equalsIgnoreCase("PrimarySecurity") || securityType.equalsIgnoreCase("SecondarySecurity")) {
-			return securityService.getTotalTokenCount();
-		} else {
-			return "Security Not Available";
-		}
+	@GetMapping("/allToken")
+	public String allToken() {
+		return securityService.getTotalTokenCount();
 	}
 
-	@GetMapping("/returnHello")
-	public String returnHello() {
-		return "Hello";
-	}
-	
 	@GetMapping("/setAllToken/{totalToken}")
 	public int setTotalToken(@PathVariable("totalToken") int totalToken) {
 		return securityService.setToken(totalToken);

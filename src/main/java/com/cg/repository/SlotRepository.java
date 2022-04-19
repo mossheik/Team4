@@ -24,13 +24,14 @@ public interface SlotRepository extends JpaRepository<Slot,Integer>{
 	public void deleteBySlotNo(@Param("slotNumber") String slotNumber);
 
 	//Returns List of All Vacant/Available Slots
-	@Query("SELECT s FROM Slot s WHERE s.slotStatus = 'Vacant'")
+	@Query("SELECT s FROM Slot s WHERE s.slotStatus = 'VACANT'")
 	public List<Slot> findAllAvailableSlot();
 	
 	//Return Slot as per SlotNo
 	@Query("from Slot slot where slot.slotNo=:slotNumber") 
 	public Slot findBySlotNo(@Param("slotNumber") String slotNumber);
 	
-	
+	@Query("Select COUNT(*) FROM Slot s where s.slotStatus = 'VACANT'")
+	public int getTotalVacantSlots();
 	
 }
