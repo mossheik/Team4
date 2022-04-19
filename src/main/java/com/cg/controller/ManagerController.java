@@ -18,58 +18,34 @@ public class ManagerController {
 	@Autowired
 	private ManagerService managerService;
 	
-	@GetMapping("/{managerType}/allSlot")
-	public List<Slot> getAllPosition(@PathVariable("managerType") String managerType)
+	@GetMapping("/allSlot")
+	public List<Slot> getAllPosition()
 	{
-		if(managerType.equals("ENTRY"))
-		{
-			return managerService.getAllParkingSlots();
-		}else
-		{
-		}
-		return null;
-		
+			return managerService.getAllParkingSlots();	
 	}
 	
-	@GetMapping("/{managerType}/availableSlot")
-	public List<Slot> getAvailablePosition(@PathVariable("managerType") String managerType)
+	@GetMapping("/availableSlot")
+	public List<Slot> getAvailablePosition()
 	{
-		if(managerType.equals("ENTRY"))
-		{
 			return managerService.showAvailableParkingSlots();
-		}else
-		{
-			//return "Only Entry Manager have Access!";
-		}
-		return null;
-		
 	}
 	
-	@GetMapping("/{managerType}/genReceipt/{id}")
-	// change name to entryBill, exitBill respectively
-	public String getReceipt(@PathVariable("managerType") String managerType,@PathVariable("id") int id)
+	@GetMapping("/nearestSlot")
+	public List<Slot> getNearestAvailablePosition()
 	{
-		if(managerType.equals("ENTRY"))
-		{
-			return managerService.generateReceipt(id);
-		}else
-		{
-			return "Only Entry Manager have Access!";
-		}
-		
+			return managerService.showNearestTenParkingSlots();
 	}
 	
-	@GetMapping("/{managerType}/genBill/{id}")
-	public String getBill(@PathVariable("managerType") String managerType,@PathVariable("id") int id)
+	@GetMapping("/genReceipt/{customerId}")
+	public String getReceipt(@PathVariable("customerId") int customerId)
 	{
-		if(managerType.equals("EXIT"))
-		{
-			return managerService.generateBill(id);
-		}else
-		{
-			return "Only Exit Manager have Access!";
-		}
-		
+			return managerService.generateReceipt(customerId);
+	}
+	
+	@GetMapping("/genBill/{receiptId}")
+	public String getBill(@PathVariable("receiptId") int receiptId)
+	{
+			return managerService.generateBill(receiptId);
 	}
 	
 }

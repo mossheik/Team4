@@ -15,6 +15,7 @@ public class Slot {
 	@Id
 	@Column(name = "slotNo")
 	private String slotNo;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "slotStatus")
 	private SlotStatus slotStatus;
@@ -51,6 +52,11 @@ public class Slot {
 	}
 
 	@Override
+	public String toString() {
+		return "Slot [slotNo=" + slotNo + ", slotStatus=" + slotStatus + "]";
+	}
+	
+	@Override
 	public int hashCode() {
 		return Objects.hash(slotNo, slotStatus);
 	}
@@ -66,10 +72,4 @@ public class Slot {
 		Slot other = (Slot) obj;
 		return Objects.equals(slotNo, other.slotNo) && slotStatus == other.slotStatus;
 	}
-
-	@Override
-	public String toString() {
-		return "Slot [slotNo=" + slotNo + ", slotStatus=" + slotStatus + "]";
-	}
-
 }

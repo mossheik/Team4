@@ -20,9 +20,6 @@ public class Admin extends Person {
 	@Column(name = "address")
 	private String address;
 
-	@Column(name = "age")
-	private int age;
-
 	public String getFirstName() {
 		return firstName;
 	}
@@ -55,23 +52,21 @@ public class Admin extends Person {
 		this.address = address;
 	}
 
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
 	public Admin() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		return "Admin [firstName=" + firstName + ", lastName=" + lastName + ", phoneNo=" + phoneNo + ", address="
+				+ address + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(address, age, firstName, lastName, phoneNo);
+		result = prime * result + Objects.hash(address, firstName, lastName, phoneNo);
 		return result;
 	}
 
@@ -84,15 +79,10 @@ public class Admin extends Person {
 		if (getClass() != obj.getClass())
 			return false;
 		Admin other = (Admin) obj;
-		return Objects.equals(address, other.address) && age == other.age && Objects.equals(firstName, other.firstName)
+		return Objects.equals(address, other.address) && Objects.equals(firstName, other.firstName)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(phoneNo, other.phoneNo);
 	}
 
-	@Override
-	public String toString() {
-		return "Admin [firstName=" + firstName + ", lastName=" + lastName + ", phoneNo=" + phoneNo + ", address="
-				+ address + ", age=" + age + "]";
-	}
 	
 	
 }

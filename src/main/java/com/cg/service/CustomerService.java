@@ -23,7 +23,7 @@ public class CustomerService{
 	public String addCustomer(Customer customer)
 	{
 		customerRepository.save(customer);
-		return "Customer Added Successfully";
+		return "Customer Added Successfully!";
 	}
 
 	//Get for Token from Primary Security
@@ -32,17 +32,24 @@ public class CustomerService{
 		//Get customer Details by customerId
 		Customer customer=customerRepository.findById(id).get();
 		
-		//Request for token to Primary Security
-		if(securityService.issueToken())
+		if(customer.isHasToken()==false)
 		{
-			//Setting Token status and Save customer
-			customer.setHasToken(true);
-			customerRepository.save(customer);
+			//Request for token to Primary Security
+			if(securityService.issueToken())
+			{
+				//Setting Token status and Save customer
+				customer.setHasToken(true);
+				customerRepository.save(customer);
+				
+				return "Token issued Successfully! to Customer ID : "+customer.getCustomerId();
+			}else
+			{
+				return "Token not Available, Parking is Full!";
+			}
 			
-			return "Token issued to "+ customer.getCustomerId();
 		}else
 		{
-			return "Token not Available, Parking is Full!";
+			return "Customer Id : "+customer.getCustomerId()+" has Already issued Token!";
 		}
 
 	}
@@ -50,30 +57,58 @@ public class CustomerService{
 	//Customer Selects Slot
 	public String selectSlot(int customerid,String slotNo)
 	{
-		//Get Customer Details by Id
-		Customer customer=customerRepository.findById(customerid).get();
-
-		//Get Slot by SlotNo
-		Slot s=slotRepository.findBySlotNo(slotNo);
-
-		//Check Slot is 'Vacant' or Not
-		if(s.getSlotStatus().toString().equalsIgnoreCase("VACANT"))
+	
+		if(customerRepository.existsById(customerid))
 		{
-			//Setting Slot
-			customer.setSlotNo(slotNo);
-			
-			//Getting Slot and Changing Status to 'Vacant'
-			Slot slot=slotRepository.findBySlotNo(slotNo);
-			slot.setSlotStatus("OCCUPIED");
-			
-			//Save Customer
-			customerRepository.save(customer);
-			
-			return customer.getCustomerId()+" is Alloted to "+slot.getSlotNo();
-			
+			//Get Customer Details by Id
+			Customer customer=customerRepository.findById(customerid).get();
+		
+			if(customer.isHasToken())
+			{
+				if(slotRepository.findBySlotNo(slotNo)!=null)
+				{
+					if(customer.getSlotNo()==null)
+					{
+						
+						//Get Slot by SlotNo
+						Slot s=slotRepository.findBySlotNo(slotNo);
+				
+						//Check Slot is 'Vacant' or Not
+						if(s.getSlotStatus().toString().equalsIgnoreCase("VACANT"))
+						{
+							//Setting Slot
+							customer.setSlotNo(slotNo);
+							
+							//Getting Slot and Changing Status to 'Vacant'
+							Slot slot=slotRepository.findBySlotNo(slotNo);
+							slot.setSlotStatus("OCCUPIED");
+							
+							//Save Customer
+							customerRepository.save(customer);
+							
+							return "Slot No : "+slot.getSlotNo()+" is Alloted to "+"Customer Id : "+customer.getCustomerId();
+							
+						}else
+						{
+							return "Can not Allocate Slot! Slot is "+s.getSlotStatus();
+						}
+						
+					}else 
+					{
+						return customer.getSlotNo()+" is Already Alloted to Customer Id : "+customer.getCustomerId();
+					}
+				}else
+				{
+					return "Entered Slot is wrong or Not added by ADMIN!";
+				}
+			}
+			else
+			{
+				return "Hey!, "+customer.getName() + " You need to First issue Token.";
+			}
 		}else
 		{
-			return "Slot is "+s.getSlotStatus();
+			return "Customer Does not Exists!";
 		}
 
 	}
@@ -85,7 +120,7 @@ public class CustomerService{
 			  return "Parked At Correct Slot";
 		  }else
 		  {
-			  return "Parked Wrong Slot";
+			  return "Parked at Wrong Slot";
 		  }
 	  }
 	 

@@ -13,12 +13,6 @@ public class SecurityService extends Token {
 	@Autowired
 	private BillRepository billRepository;
 
-	// Set Token Count
-	public int setToken(int tokenCount) {
-		Token.setTokenCount(tokenCount);
-		return Token.tokenCount;
-	}
-
 	// Get Total Available Token Count
 	public String getTotalTokenCount() {
 		return "All Available Token : " + Token.tokenCount;
@@ -37,16 +31,22 @@ public class SecurityService extends Token {
 
 	// Verify Customers slotNo with Parked Position
 	public boolean VerifySlot(int receiptId, String slotParked) {
-
-		// Get SlotNo from Receipt by receiptId
-		Bill receipt = billRepository.findById(receiptId).get();
-
-		// return true if correct position or else false
-		if (receipt.getSlotNo().equalsIgnoreCase(slotParked)) {
-			return true;
-		} else {
-			return false;
-		}
+			// Get SlotNo from Receipt by receiptId
+			Bill receipt = billRepository.findById(receiptId).get();
+	
+			// return true if correct position or else false
+			if (receipt.getSlotNo().equalsIgnoreCase(slotParked)) {
+				return true;
+			} else {
+				return false;
+			}
+		
+	}
+	
+	// Optional Method to Set Token Count
+	public int setToken(int tokenCount) {
+		Token.setTokenCount(tokenCount);
+		return Token.tokenCount;
 	}
 
 }

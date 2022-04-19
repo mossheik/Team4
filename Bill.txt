@@ -4,19 +4,18 @@
 ----------------------------------
 Bill Details
 ----------------------------------
-Bill Id : 1
+Bill Id : 8
 Date : 2022-04-19
 ----------------------------------
 Customer Details
 ----------------------------------
-Customer Id : 1
-Name : aditya
-Phone Number : 97687
-Vehicle Number : MH 50
-Token Number : true
-Parking Position : A10
-Entry Time : 17:23:16
-Exit Time : 18:16:55.646295300
+Customer Id : 4
+Name : Dilraj
+Phone Number : 984594857
+Vehicle Number : MH31 AJ8768
+Parking Position : A11
+Entry Time : 22:54:45
+Exit Time : 23:00:55.274349700
 Parking Duration (in Hours) : 1
 ----------------------------------
 Payment (Charges : 60 Ruppes per Hour)

@@ -4,15 +4,14 @@
 ----------------------------------
 Receipt Details
 ----------------------------------
-Receipt Id : 1
+Receipt Id : 9
 Date : 2022-04-19
 ----------------------------------
 Customer Details
 ----------------------------------
-Customer Id : 1
-Name : aditya
-Phone Number : 97687
-Vehicle Number : MH 50
-Token Number : true
-Parking Position : A10
-Entry Time : 17:23:16
+Customer Id : 5
+Name : Dilraj
+Phone Number : 984594857
+Vehicle Number : MH31 AJ8768
+Parking Position : A11
+Entry Time : 23:40:55
