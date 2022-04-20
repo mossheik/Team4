@@ -3,6 +3,7 @@ package com.cg.service;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cg.entity.Manager;
@@ -26,6 +27,9 @@ public class AdminService {
 	@Autowired
 	private SlotRepository slotRepository;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@PostConstruct
 	private void initializer() {
 		Token.setTokenCount(slotRepository.getTotalVacantSlots());
@@ -33,6 +37,7 @@ public class AdminService {
 
 	// Adding Security
 	public String addSecurity(Security security) {
+		security.setPassword(passwordEncoder.encode(security.getPassword()));
 		securityRepository.save(security);
 		return "Security Added Successfully!";
 	}
@@ -45,6 +50,7 @@ public class AdminService {
 
 	// Adding Manager
 	public String addManager(Manager manager) {
+		manager.setPassword(passwordEncoder.encode(manager.getPassword()));
 		managerRepository.save(manager);
 		return "Manager Added Successfully!";
 	}

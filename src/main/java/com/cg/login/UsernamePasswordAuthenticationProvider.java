@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.cg.entity.Person;
@@ -23,25 +24,15 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
 	@Autowired
 	private PersonRepository personRepository;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-//		try {
-//			String email = authentication.getName();
-//			String password = authentication.getCredentials().toString();
-//			Person person = personRepository.findByEmail(email).get(0);
-//			if (null != person && person.getId() > 0 && password.equals(person.getPassword())) {
-//				return new UsernamePasswordAuthenticationToken(person.getEmail(), password,
-//						getGrantedAuthorities(person.getRole()));
-//			} else {
-//				throw new BadCredentialsException("Invalid Credential");
-//			}
-//		} catch (Exception e) {
-//			throw new BadCredentialsException("Invalid Credential");
-//		}
 		String email = authentication.getName();
 		String password = authentication.getCredentials().toString();
 		Person person = personRepository.findByEmail(email).get(0);
-		if (null != person && person.getId() > 0 && password.equals(person.getPassword())) {
+		if (null != person && person.getId() > 0 && passwordEncoder.matches(password, person.getPassword())) {
 			return new UsernamePasswordAuthenticationToken(person.getEmail(), password,
 					getGrantedAuthorities(person.getRole()));
 		} else {

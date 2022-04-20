@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -17,8 +18,12 @@ public class Person {
 	protected int id;
 	@Column(name = "email")
 	protected String email;
+
+	@NotBlank
 	@Column(name = "password")
 	protected String password;
+
+	@NotBlank
 	@Column(name = "role")
 	protected String role;
 
