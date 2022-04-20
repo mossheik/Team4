@@ -1,7 +1,5 @@
 package com.cg.entity;
 
-import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,32 +15,12 @@ public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected int id;
-
 	@Column(name = "email")
 	protected String email;
-
 	@Column(name = "password")
 	protected String password;
-
 	@Column(name = "role")
 	protected String role;
-
-	public Person() {
-	}
-
-	public Person(String email, String password, String role) {
-		this.email = email;
-		this.password = password;
-		this.role = role;
-	}
-	
-	public Person(int id, String email, String password, String role) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.password = password;
-		this.role = role;
-	}
 
 	public String getRole() {
 		return role;
@@ -76,26 +54,26 @@ public class Person {
 		this.password = password;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(email, id, password, role);
+	public Person() {
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Person other = (Person) obj;
-		return Objects.equals(email, other.email) && id == other.id && Objects.equals(password, other.password)
-				&& Objects.equals(role, other.role);
+	public Person(String email, String password, String role) {
+		this.email = email;
+		this.password = password;
+		this.role = role;
+	}
+
+	public Person(int id, String email, String password, String role) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.role = role;
 	}
 
 	@Override
 	public String toString() {
 		return "Person [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + "]";
 	}
+
 }

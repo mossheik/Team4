@@ -61,9 +61,7 @@ public class AdminService {
 		Slot s = new Slot();
 
 		// Generating Token as per Slots
-		// Token.tokenCount = slotRepository.getTotalVacantSlots();
-		Token.tokenCount = Token.tokenCount + totalSlot;
-
+		Token.setTokenCount(Token.getTokenCount() + totalSlot);
 		// Creating Slots
 		if (mode.equalsIgnoreCase("create")) {
 			char var = 'A';
@@ -87,9 +85,7 @@ public class AdminService {
 				}
 				s.setSlotStatus(type);
 				slotRepository.save(s);
-
 			}
-
 			return totalSlot + " Slots Added Successfully";
 		}
 		// Extending Slots
@@ -97,7 +93,6 @@ public class AdminService {
 			// Getting Last slotNo
 			Slot lastSlotRepo = slotRepository.findTopByOrderBySlotNoDesc();
 			String lastSlot = lastSlotRepo.getSlotNo();
-
 			char l = lastSlot.charAt(0);
 			String ls = lastSlot.substring(1);
 			int lst = Integer.parseInt(ls);
@@ -120,21 +115,17 @@ public class AdminService {
 				}
 				s.setSlotStatus(type);
 				slotRepository.save(s);
-
 			}
-			return totalSlot+" Slots Inserted Successfully";
-
+			return totalSlot + " Slots Inserted Successfully";
 		}
 		return "Please Choose Correct Status";
-
 	}
 
 	// Remove Slot
 	public String removeSlot(int decr, String slotPos) {
-		
-		//Updating Token Count
-		Token.tokenCount=Token.tokenCount-decr;
-		
+
+		// Updating Token Count
+		Token.setTokenCount(Token.getTokenCount() - decr);
 		char l = slotPos.charAt(0);
 		String ls = slotPos.substring(1);
 		int lst = Integer.parseInt(ls);
@@ -157,19 +148,17 @@ public class AdminService {
 			c++;
 		}
 
-		return decr+" Slots Removed Successfully";
+		return decr + " Slots Removed Successfully";
 	}
 
 	// For Updating Type at any slot Position
 	public String updateSlot(String slotPos, String status) {
 		Slot s = new Slot();
-
 		// Setting Updated Details
 		s.setSlotNo(slotPos);
 		s.setSlotStatus(status);
-
 		slotRepository.save(s);
-		return slotPos+" is Update Successfully to "+status;
+		return slotPos + " is Update Successfully to " + status;
 	}
 
 	// Updating Slot Type for a Given Range
@@ -204,8 +193,7 @@ public class AdminService {
 			count++;
 			s.setSlotStatus(type);
 			slotRepository.save(s);
-
 		}
-		return "Status updated for "+start+" to "+end+" as "+type;
+		return "Status updated for " + start + " to " + end + " as " + type;
 	}
 }

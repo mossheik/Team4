@@ -2,7 +2,6 @@ package com.cg.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,20 +24,20 @@ public class Bill {
 
 	@Column(name = "entryTime")
 	private LocalTime entryTime;
-	
+
 	@Column(name = "exitTime")
 	private LocalTime exitTime;
-	
+
 	@Column(name = "slotNo")
 	private String slotNo;
-	
+
 	@Column(name = "amount")
 	private double amount;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "customerId")
-	 private Customer customer;
-	 
+	@JoinColumn(referencedColumnName = "customerId")
+	private Customer customer;
+
 	public Bill() {
 		super();
 	}
@@ -116,27 +115,4 @@ public class Bill {
 		return "Bill [billId=" + billId + ", date=" + date + ", entryTime=" + entryTime + ", exitTime=" + exitTime
 				+ ", slotNo=" + slotNo + ", amount=" + amount + ", customer=" + customer + "]";
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(amount, billId, customer, date, entryTime, exitTime, slotNo);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Bill other = (Bill) obj;
-		return Double.doubleToLongBits(amount) == Double.doubleToLongBits(other.amount) && billId == other.billId
-				&& Objects.equals(customer, other.customer) && Objects.equals(date, other.date)
-				&& Objects.equals(entryTime, other.entryTime) && Objects.equals(exitTime, other.exitTime)
-				&& Objects.equals(slotNo, other.slotNo);
-	}
-
-	
-
 }

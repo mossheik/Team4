@@ -3,6 +3,7 @@ package com.cg.entity;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,33 +12,26 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Customer {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int customerId;
-
 	@Column(name = "name")
 	private String name;
-
 	@Column(name = "vehicleNumber")
 	private String vehicleNumber;
-
-	@Column(name="phoneNumber")
+	@Column(name = "phoneNumber")
 	private String phoneNumber;
-
-	@Column(name="hasToken")
+	@Column(name = "hasToken")
 	private boolean hasToken;
-
-	@Column(name="slotNo")
+	@Column(name = "slotNo")
 	private String slotNo;
-
 	@OneToOne(mappedBy = "customer")
 	private Bill bill;
 
 	public Customer() {
 		super();
 	}
-	
+
 	public Customer(int customerId, String name, String vehicleNumber, String phoneNumber, boolean hasToken,
 			String slotNo) {
 		super();
@@ -142,8 +136,5 @@ public class Customer {
 				&& Objects.equals(name, other.name) && Objects.equals(phoneNumber, other.phoneNumber)
 				&& Objects.equals(slotNo, other.slotNo) && Objects.equals(vehicleNumber, other.vehicleNumber);
 	}
-
-
-
 
 }

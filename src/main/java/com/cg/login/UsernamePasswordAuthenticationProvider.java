@@ -25,21 +25,26 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		try {
-				String email = authentication.getName();
-				String password = authentication.getCredentials().toString();
-				Person person = personRepository.findByEmail(email).get(0);
-				System.out.println(person.toString());
-				if (null != person && person.getId() > 0 && password.equals(person.getPassword())) {
-					return new UsernamePasswordAuthenticationToken(person.getEmail(), password,
-							getGrantedAuthorities(person.getRole()));
-				} else {
-					System.out.println("Bad Credential or some error");
-					throw new BadCredentialsException("Invalid Credential");
-				}
-		}catch(Exception e)
-		{
-			System.out.println("Login Unsuccessfull!");
+//		try {
+//			String email = authentication.getName();
+//			String password = authentication.getCredentials().toString();
+//			Person person = personRepository.findByEmail(email).get(0);
+//			if (null != person && person.getId() > 0 && password.equals(person.getPassword())) {
+//				return new UsernamePasswordAuthenticationToken(person.getEmail(), password,
+//						getGrantedAuthorities(person.getRole()));
+//			} else {
+//				throw new BadCredentialsException("Invalid Credential");
+//			}
+//		} catch (Exception e) {
+//			throw new BadCredentialsException("Invalid Credential");
+//		}
+		String email = authentication.getName();
+		String password = authentication.getCredentials().toString();
+		Person person = personRepository.findByEmail(email).get(0);
+		if (null != person && person.getId() > 0 && password.equals(person.getPassword())) {
+			return new UsernamePasswordAuthenticationToken(person.getEmail(), password,
+					getGrantedAuthorities(person.getRole()));
+		} else {
 			throw new BadCredentialsException("Invalid Credential");
 		}
 	}

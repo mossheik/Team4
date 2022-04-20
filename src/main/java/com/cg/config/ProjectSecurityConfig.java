@@ -8,11 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().ignoringAntMatchers("/api/**")
-		.and().authorizeRequests()
-		.antMatchers("/api/manager/**").hasRole("MANAGER")
-		.antMatchers("/api/admin/**").hasRole("ADMIN")
-		.antMatchers("/api/security/**").hasRole("SECURITY")
-		.and().formLogin().and().httpBasic();
+		http.csrf().ignoringAntMatchers("/api/**").and().authorizeRequests().antMatchers("/api/manager/**")
+				.hasRole("MANAGER").antMatchers("/api/admin/**").hasRole("ADMIN").antMatchers("/api/security/**")
+				.hasRole("SECURITY").and().formLogin().and().httpBasic();
 	}
 }

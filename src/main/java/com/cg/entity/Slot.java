@@ -1,13 +1,10 @@
 package com.cg.entity;
 
-import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-
 
 @Entity
 public class Slot {
@@ -15,7 +12,7 @@ public class Slot {
 	@Id
 	@Column(name = "slotNo")
 	private String slotNo;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "slotStatus")
 	private SlotStatus slotStatus;
@@ -31,7 +28,6 @@ public class Slot {
 	public SlotStatus getSlotStatus() {
 		return slotStatus;
 	}
-	
 
 	public void setSlotStatus(SlotStatus slotStatus) {
 		this.slotStatus = slotStatus;
@@ -55,21 +51,5 @@ public class Slot {
 	public String toString() {
 		return "Slot [slotNo=" + slotNo + ", slotStatus=" + slotStatus + "]";
 	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(slotNo, slotStatus);
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Slot other = (Slot) obj;
-		return Objects.equals(slotNo, other.slotNo) && slotStatus == other.slotStatus;
-	}
 }

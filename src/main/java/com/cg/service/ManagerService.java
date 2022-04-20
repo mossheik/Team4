@@ -27,7 +27,7 @@ public class ManagerService {
 
 	@Autowired
 	private BillRepository billRepository;
-	
+
 	@Autowired
 	private SlotRepository slotRepository;
 
@@ -40,36 +40,35 @@ public class ManagerService {
 	public List<Slot> showAvailableParkingSlots() {
 		return slotRepository.findAllAvailableSlot();
 	}
-	
+
 	// Display Ten Nearest Vacant/Available Parking Slots
 	public List<Slot> showNearestTenParkingSlots() {
-			return slotRepository.findTop10ByOrderBySlotNoAsc();
+		return slotRepository.findTop10ByOrderBySlotNoAsc();
 	}
 
 	// Add Customer in Bill Table and Generate Receipt
 	public String generateReceipt(int customerId) {
-		
-		//Check whether customerId is available or not
+
+		// Check whether customerId is available or not
 		if (customerRepository.existsById(customerId)) {
-			
+
 			// Getting Customer Details by Id
 			Customer customer = customerRepository.findById(customerId).get();
-			
-			if(customer.getSlotNo()!=null)
-			{
+
+			if (customer.getSlotNo() != null) {
 
 				// Creating new Bill Object
 				Bill receipt = new Bill();
-	
+
 				// Setting Receipt Details
 				receipt.setCustomer(customer);
 				receipt.setDate(LocalDate.now());
 				receipt.setEntryTime(LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
 				receipt.setSlotNo(receipt.getCustomer().getSlotNo());
-	
+
 				// Saving Receipt Details in Bill Table
 				billRepository.save(receipt);
-	
+
 				// Generating Receipt File
 				try {
 					FileWriter receiptFile = new FileWriter("Receipt.txt");
@@ -108,17 +107,16 @@ public class ManagerService {
 					receiptFile.append("Entry Time : " + receipt.getEntryTime());
 					receiptFile.append("\n");
 					receiptFile.close();
-	
+
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				return "Receipt Generated for Customer Id : "+customer.getCustomerId();
-				
-			} else
-			{
+				return "Receipt Generated for Customer Id : " + customer.getCustomerId();
+
+			} else {
 				return "Please! Choose Slot First to generate Receipt";
 			}
-			
+
 		} else {
 			return "Customer Id is wrong or Customer Does not Exists!";
 		}
@@ -129,29 +127,28 @@ public class ManagerService {
 
 		try {
 			// Check whether receiptId is available or not
-			if (billRepository.findById(receiptId)!=null) 
-			{
-				
+			if (billRepository.findById(receiptId) != null) {
+
 				// Getting Bill Details by billId
 				Bill bill = billRepository.findById(receiptId).get();
-	
+
 				// Setting Details
 				bill.setExitTime(LocalTime.now());
 				double finalBillAmount = 60.0;
 				long diffTotalDuration = ChronoUnit.HOURS.between(bill.getEntryTime(), bill.getExitTime());
-	
+
 				// Check for Duration : If 0 assign 1
 				if (diffTotalDuration < 1) {
-					diffTotalDuration=1;
+					diffTotalDuration = 1;
 					bill.setAmount(finalBillAmount);
 				} else {
 					finalBillAmount = 60 * (double) diffTotalDuration;
 					bill.setAmount(finalBillAmount);
 				}
-	
+
 				// Saving Bill Details in Bill Table
 				billRepository.save(bill);
-	
+
 				// Generating Final Bill in File
 				try {
 					FileWriter finalBill = new FileWriter("Bill.txt");
@@ -201,25 +198,23 @@ public class ManagerService {
 					finalBill.append("\n");
 					finalBill.append("Total Amount : " + bill.getAmount());
 					finalBill.append("\n");
-	
+
 					finalBill.close();
-	
+
 					// Getting Customer details by Id from bill
 					Customer customer = customerRepository.getById(bill.getCustomer().getCustomerId());
-	
+
 					// Calling Customer Exit to reset Values
 					customerExit(customer);
-				}catch (IOException e) {
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				return "Bill generated for Customer Id : "+bill.getCustomer().getCustomerId();
-				
-			}else
-			{
+				return "Bill generated for Customer Id : " + bill.getCustomer().getCustomerId();
+
+			} else {
 				return "Bill can not be Generated";
 			}
-		}catch(NoSuchElementException ne)
-		{
+		} catch (NoSuchElementException ne) {
 			return "You have not Generated Receipt or Entered Bill Id is Wrong!";
 		}
 	}
@@ -228,8 +223,8 @@ public class ManagerService {
 	public void customerExit(Customer customer) {
 		// Setting Customer hasToken to False and Increment token
 		customer.setHasToken(false);
-		Token.tokenCount++;
 
+		Token.setTokenCount(Token.getTokenCount() + 1);
 		// Getting Customer SlotNo
 		String customersSlot = customer.getSlotNo();
 
