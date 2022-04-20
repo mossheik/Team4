@@ -2,8 +2,13 @@ package com.cg.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Pattern;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(name = "uniqueFirstNameAndLast", columnNames = { "firstName",
+		"lastName" }))
 public class Manager extends Person {
 
 	@Column(name = "firstName")
@@ -12,6 +17,7 @@ public class Manager extends Person {
 	private String lastName;
 	@Column(name = "address")
 	private String address;
+	@Pattern(regexp = "[1-9][0-9]{9}")
 	@Column(name = "phoneNumber")
 	private String phoneNumber;
 

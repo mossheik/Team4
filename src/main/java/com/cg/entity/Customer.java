@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Customer {
@@ -17,8 +18,9 @@ public class Customer {
 	private int customerId;
 	@Column(name = "name")
 	private String name;
-	@Column(name = "vehicleNumber")
+	@Column(name = "vehicleNumber", unique = true)
 	private String vehicleNumber;
+	@Pattern(regexp = "[1-9][0-9]{9}")
 	@Column(name = "phoneNumber")
 	private String phoneNumber;
 	@Column(name = "hasToken")
