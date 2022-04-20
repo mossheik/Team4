@@ -13,7 +13,7 @@ import javax.persistence.InheritanceType;
 public class Person {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	protected int id;
 	@Column(name = "email")
 	protected String email;
