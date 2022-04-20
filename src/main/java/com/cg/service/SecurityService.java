@@ -30,7 +30,7 @@ public class SecurityService extends Token {
 	// Issue Token to Customer
 	public boolean issueToken() {
 		if (Token.tokenCount > 0) {
-			Token.setTokenCount(Token.getTokenCount() + 1);
+			Token.setTokenCount(Token.getTokenCount());
 			return true;
 		} else {
 			return false;
