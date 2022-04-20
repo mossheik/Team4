@@ -56,7 +56,7 @@ public class AdminService {
 	}
 
 	// Adding Parking Slots
-	public String addSlot(int totalSlot, String type, String status) {
+	public String addSlot(int totalSlot, String type, String mode) {
 
 		Slot s = new Slot();
 
@@ -94,7 +94,6 @@ public class AdminService {
 		}
 		// Extending Slots
 		else if (status.equalsIgnoreCase("insert")) {
-
 			// Getting Last slotNo
 			Slot lastSlotRepo = slotRepository.findTopByOrderBySlotNoDesc();
 			String lastSlot = lastSlotRepo.getSlotNo();
