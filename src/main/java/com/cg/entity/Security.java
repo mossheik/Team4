@@ -7,10 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
-enum Type {
-	ENTRY, CHECK;
-}
-
 @Entity
 public class Security extends Person {
 	@Column(name = "first_name")
@@ -27,7 +23,17 @@ public class Security extends Person {
 	
 	@Column(name = "security_type")
 	@Enumerated(EnumType.STRING)
-	private Type securityType;
+	private SecurityType securityType;
+
+	
+	public Security(String firstName, String lastName, String phoneNumber, String address, SecurityType securityType) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.securityType = securityType;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -53,11 +59,11 @@ public class Security extends Person {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Type getSecurityType() {
+	public SecurityType getSecurityType() {
 		return securityType;
 	}
 
-	public void setSecurityType(Type securityType) {
+	public void setSecurityType(SecurityType securityType) {
 		this.securityType = securityType;
 	}
 

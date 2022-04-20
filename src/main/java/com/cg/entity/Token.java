@@ -5,6 +5,7 @@ public class Token {
 	public static int tokenCount;
 
 	public static int getTokenCount() {
+		
 		return tokenCount;
 	}
 

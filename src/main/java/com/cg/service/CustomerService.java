@@ -10,15 +10,25 @@ import com.cg.repository.SlotRepository;
 
 @Service
 public class CustomerService{
-
-	@Autowired
+	
 	private CustomerRepository customerRepository;
+    private SlotRepository slotRepository;
+ 
+    private SecurityService securityService;
 
-	@Autowired
-	private SlotRepository slotRepository;
-
-	SecurityService securityService=new SecurityService();
-
+    @Autowired
+    public CustomerService(CustomerRepository customerRepository, SlotRepository slotRepository,
+            SecurityService securityService) {
+        super();
+        this.customerRepository = customerRepository;
+        this.slotRepository = slotRepository;
+        this.securityService = securityService;
+    }
+ 
+    public CustomerService() {
+        super();
+    }
+	
 	//Add Customer
 	public String addCustomer(Customer customer)
 	{
@@ -27,41 +37,47 @@ public class CustomerService{
 	}
 
 	//Get for Token from Primary Security
-	public String getToken(int id)
+	public String getToken(int customerId)
 	{
-		//Get customer Details by customerId
-		Customer customer=customerRepository.findById(id).get();
-		
-		if(customer.isHasToken()==false)
+		if(customerRepository.existsById(customerId))
 		{
-			//Request for token to Primary Security
-			if(securityService.issueToken())
+			//Get customer Details by customerId
+			Customer customer=customerRepository.findById(customerId).get();
+		
+			if(customer.isHasToken()==false)
 			{
-				//Setting Token status and Save customer
-				customer.setHasToken(true);
-				customerRepository.save(customer);
+				//Request for token to Primary Security
+				if(securityService.issueToken())
+				{
+					//Setting Token status and Save customer
+					customer.setHasToken(true);
+					customerRepository.save(customer);
+					
+					return "Token issued Successfully! to Customer ID : "+customer.getCustomerId();
+				}else
+				{
+					return "Token not Available, Parking is Full!";
+				}
 				
-				return "Token issued Successfully! to Customer ID : "+customer.getCustomerId();
 			}else
 			{
-				return "Token not Available, Parking is Full!";
+				return "Customer Id : "+customer.getCustomerId()+" has Already issued Token!";
 			}
-			
 		}else
 		{
-			return "Customer Id : "+customer.getCustomerId()+" has Already issued Token!";
-		}
+			return "Entered Customer Id is wrong!";
+			}
 
 	}
 
 	//Customer Selects Slot
-	public String selectSlot(int customerid,String slotNo)
+	public String selectSlot(int customerId,String slotNo)
 	{
 	
-		if(customerRepository.existsById(customerid))
+		if(customerRepository.existsById(customerId))
 		{
 			//Get Customer Details by Id
-			Customer customer=customerRepository.findById(customerid).get();
+			Customer customer=customerRepository.findById(customerId).get();
 		
 			if(customer.isHasToken())
 			{
@@ -115,7 +131,7 @@ public class CustomerService{
 
 	  //Verify Parked Location from Secondary Security
 	  public String parkAt(int receiptId,String ParkedSlotNo) {
-		  if(securityService.VerifySlot(receiptId, ParkedSlotNo))
+		  if(securityService.verifySlot(receiptId, ParkedSlotNo))
 		  {
 			  return "Parked At Correct Slot";
 		  }else

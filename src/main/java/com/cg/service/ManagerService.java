@@ -17,7 +17,6 @@ import com.cg.entity.Slot;
 import com.cg.entity.Token;
 import com.cg.repository.BillRepository;
 import com.cg.repository.CustomerRepository;
-import com.cg.repository.ManagerRepository;
 import com.cg.repository.SlotRepository;
 
 @Service

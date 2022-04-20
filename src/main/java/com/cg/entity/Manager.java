@@ -4,12 +4,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
-enum ManagerType {
-	ENTRY, EXIT
-}
 
 @Entity
 public class Manager extends Person {
@@ -26,9 +21,14 @@ public class Manager extends Person {
 	@Column(name = "phoneNumber")
 	private String phoneNumber;
 
-	@Column(name = "managerType")
-	@Enumerated(EnumType.STRING)
-	private ManagerType managerType;
+	
+	public Manager(String firstName, String lastName, String address, String phoneNumber) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -62,25 +62,17 @@ public class Manager extends Person {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public ManagerType getManagerType() {
-		return managerType;
-	}
-
-	public void setManagerType(ManagerType managerType) {
-		this.managerType = managerType;
-	}
-
 	@Override
 	public String toString() {
 		return "Manager [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", phoneNumber="
-				+ phoneNumber + ", managerType=" + managerType + "]";
+				+ phoneNumber + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(address, firstName, lastName, managerType, phoneNumber);
+		result = prime * result + Objects.hash(address, firstName, lastName, phoneNumber);
 		return result;
 	}
 
@@ -94,10 +86,10 @@ public class Manager extends Person {
 			return false;
 		Manager other = (Manager) obj;
 		return Objects.equals(address, other.address) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(lastName, other.lastName) && managerType == other.managerType
-				&& Objects.equals(phoneNumber, other.phoneNumber);
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(phoneNumber, other.phoneNumber);
 	}
 
+	
 	
 	
 }
