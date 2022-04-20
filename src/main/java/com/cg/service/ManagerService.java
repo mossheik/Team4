@@ -133,7 +133,7 @@ public class ManagerService {
 				Bill bill = billRepository.findById(receiptId).get();
 
 				// Setting Details
-				bill.setExitTime(LocalTime.now());
+				bill.setExitTime(LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
 				double finalBillAmount = 60.0;
 				long diffTotalDuration = ChronoUnit.HOURS.between(bill.getEntryTime(), bill.getExitTime());
 
