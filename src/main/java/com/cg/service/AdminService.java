@@ -65,7 +65,7 @@ public class AdminService {
 		Token.tokenCount = Token.tokenCount + totalSlot;
 
 		// Creating Slots
-		if (status.equalsIgnoreCase("create")) {
+		if (mode.equalsIgnoreCase("create")) {
 			char var = 'A';
 			String var1 = "A";
 			int counter = 0;
@@ -93,7 +93,7 @@ public class AdminService {
 			return totalSlot + " Slots Added Succesfully";
 		}
 		// Extending Slots
-		else if (status.equalsIgnoreCase("insert")) {
+		else if (mode.equalsIgnoreCase("insert")) {
 			// Getting Last slotNo
 			Slot lastSlotRepo = slotRepository.findTopByOrderBySlotNoDesc();
 			String lastSlot = lastSlotRepo.getSlotNo();
