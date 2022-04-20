@@ -16,9 +16,18 @@ import com.cg.service.CustomerService;
 @RequestMapping(path = "/api/customer")
 public class CustomerController {
 	
-	@Autowired
 	private CustomerService customerService;
 
+    public CustomerController() {
+        super();
+    }
+ 
+    @Autowired
+    public CustomerController(CustomerService customerService) {
+        super();
+        this.customerService = customerService;
+    }
+	
 	@PostMapping("/addCustomer")
 	public String addBook(@RequestBody Customer customer) {
 		return customerService.addCustomer(customer);

@@ -27,10 +27,18 @@ public class Person {
 	@Column(name = "role")
 	protected String role;
 
-	protected Person() {
+	public Person() {
 	}
 
-	protected Person(String email, String password, String role) {
+	public Person(String email, String password, String role) {
+		this.email = email;
+		this.password = password;
+		this.role = role;
+	}
+	
+	public Person(int id, String email, String password, String role) {
+		super();
+		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.role = role;

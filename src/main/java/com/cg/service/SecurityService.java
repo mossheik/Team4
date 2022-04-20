@@ -6,12 +6,22 @@ import org.springframework.stereotype.Service;
 import com.cg.entity.Bill;
 import com.cg.entity.Token;
 import com.cg.repository.BillRepository;
+import com.cg.repository.SecurityRepository;
 
 @Service
 public class SecurityService extends Token {
 
-	@Autowired
+	private SecurityRepository securityRepository;
 	private BillRepository billRepository;
+	
+	public SecurityService() {}
+	
+	@Autowired
+	public SecurityService(BillRepository billRepository, SecurityRepository securityRepository){
+	    this.billRepository = billRepository;
+	    this.securityRepository = securityRepository;
+	}
+	
 
 	// Get Total Available Token Count
 	public String getTotalTokenCount() {
@@ -30,17 +40,18 @@ public class SecurityService extends Token {
 	}
 
 	// Verify Customers slotNo with Parked Position
-	public boolean VerifySlot(int receiptId, String slotParked) {
+	public boolean verifySlot(int receiptId, String slotParked) {
 			// Get SlotNo from Receipt by receiptId
+		try {
 			Bill receipt = billRepository.findById(receiptId).get();
-	
 			// return true if correct position or else false
 			if (receipt.getSlotNo().equalsIgnoreCase(slotParked)) {
 				return true;
-			} else {
-				return false;
 			}
-		
+		} catch(NullPointerException e) {
+			System.out.println("Null pointer exception thrown " + receiptId);
+		}
+		return false;
 	}
 	
 	// Optional Method to Set Token Count

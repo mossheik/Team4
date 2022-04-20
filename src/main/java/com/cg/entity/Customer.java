@@ -37,6 +37,17 @@ public class Customer {
 	public Customer() {
 		super();
 	}
+	
+	public Customer(int customerId, String name, String vehicleNumber, String phoneNumber, boolean hasToken,
+			String slotNo) {
+		super();
+		this.customerId = customerId;
+		this.name = name;
+		this.vehicleNumber = vehicleNumber;
+		this.phoneNumber = phoneNumber;
+		this.hasToken = hasToken;
+		this.slotNo = slotNo;
+	}
 
 	public Customer(int customerId, String name, String vehicleNumber, String phoneNumber, boolean hasToken,
 			String slotNo, Bill bill) {

@@ -34,25 +34,25 @@ public class AdminService {
 	// Adding Security
 	public String addSecurity(Security security) {
 		securityRepository.save(security);
-		return "Security Added Succesfully!";
+		return "Security Added Successfully!";
 	}
 
 	// Removing Security
 	public String removeSecurity(int securityId) {
 		securityRepository.deleteById(securityId);
-		return "Security Deleted Succesfully!";
+		return "Security Deleted Successfully!";
 	}
 
 	// Adding Manager
 	public String addManager(Manager manager) {
 		managerRepository.save(manager);
-		return "Manager Added Succesfully!";
+		return "Manager Added Successfully!";
 	}
 
 	// Removing Manager
 	public String removeManager(int managerId) {
 		managerRepository.deleteById(managerId);
-		return "Manager Deleted Succesfully!";
+		return "Manager Deleted Successfully!";
 	}
 
 	// Adding Parking Slots
@@ -90,7 +90,7 @@ public class AdminService {
 
 			}
 
-			return totalSlot + " Slots Added Succesfully";
+			return totalSlot + " Slots Added Successfully";
 		}
 		// Extending Slots
 		else if (mode.equalsIgnoreCase("insert")) {
@@ -122,7 +122,7 @@ public class AdminService {
 				slotRepository.save(s);
 
 			}
-			return totalSlot+" Slots Inserted Succesfully";
+			return totalSlot+" Slots Inserted Successfully";
 
 		}
 		return "Please Choose Correct Status";
@@ -157,7 +157,7 @@ public class AdminService {
 			c++;
 		}
 
-		return decr+" Slots Removed Succesfully";
+		return decr+" Slots Removed Successfully";
 	}
 
 	// For Updating Type at any slot Position
@@ -169,7 +169,7 @@ public class AdminService {
 		s.setSlotStatus(status);
 
 		slotRepository.save(s);
-		return slotPos+" is Update Succesfully to "+status;
+		return slotPos+" is Update Successfully to "+status;
 	}
 
 	// Updating Slot Type for a Given Range
