@@ -15,7 +15,6 @@ import com.cg.repository.SecurityRepository;
 import com.cg.repository.SlotRepository;
 
 @Service
-
 public class AdminService {
 
 	@Autowired
@@ -35,25 +34,25 @@ public class AdminService {
 	// Adding Security
 	public String addSecurity(Security security) {
 		securityRepository.save(security);
-		return "Security Added Succesfully";
+		return "Security Added Succesfully!";
 	}
 
 	// Removing Security
 	public String removeSecurity(int securityId) {
 		securityRepository.deleteById(securityId);
-		return "Security Deleted Succesfully";
+		return "Security Deleted Succesfully!";
 	}
 
 	// Adding Manager
 	public String addManager(Manager manager) {
 		managerRepository.save(manager);
-		return "Manager Added Succesfully";
+		return "Manager Added Succesfully!";
 	}
 
 	// Removing Manager
 	public String removeManager(int managerId) {
 		managerRepository.deleteById(managerId);
-		return "Manager Deleted Succesfully";
+		return "Manager Deleted Succesfully!";
 	}
 
 	// Adding Parking Slots
@@ -62,11 +61,11 @@ public class AdminService {
 		Slot s = new Slot();
 
 		// Generating Token as per Slots
-//		Token.tokenCount = slotRepository.getTotalVacantSlots();
+		// Token.tokenCount = slotRepository.getTotalVacantSlots();
 		Token.tokenCount = Token.tokenCount + totalSlot;
 
 		// Creating Slots
-		if (mode.equals("Create") || mode.equals("create")) {
+		if (status.equalsIgnoreCase("create")) {
 			char var = 'A';
 			String var1 = "A";
 			int counter = 0;
@@ -94,8 +93,7 @@ public class AdminService {
 			return totalSlot + " Slots Added Succesfully";
 		}
 		// Extending Slots
-		else if (mode.equals("Insert") || mode.equals("insert")) {
-
+		else if (status.equalsIgnoreCase("insert")) {
 			// Getting Last slotNo
 			Slot lastSlotRepo = slotRepository.findTopByOrderBySlotNoDesc();
 			String lastSlot = lastSlotRepo.getSlotNo();
@@ -124,7 +122,7 @@ public class AdminService {
 				slotRepository.save(s);
 
 			}
-			return totalSlot + " Slots Inserted Succesfully";
+			return totalSlot+" Slots Inserted Succesfully";
 
 		}
 		return "Please Choose Correct Status";
@@ -133,6 +131,10 @@ public class AdminService {
 
 	// Remove Slot
 	public String removeSlot(int decr, String slotPos) {
+		
+		//Updating Token Count
+		Token.tokenCount=Token.tokenCount-decr;
+		
 		char l = slotPos.charAt(0);
 		String ls = slotPos.substring(1);
 		int lst = Integer.parseInt(ls);
@@ -155,7 +157,7 @@ public class AdminService {
 			c++;
 		}
 
-		return "Removed Succesfully";
+		return decr+" Slots Removed Succesfully";
 	}
 
 	// For Updating Type at any slot Position
@@ -167,7 +169,7 @@ public class AdminService {
 		s.setSlotStatus(status);
 
 		slotRepository.save(s);
-		return "Update Succesfully";
+		return slotPos+" is Update Succesfully to "+status;
 	}
 
 	// Updating Slot Type for a Given Range
@@ -204,6 +206,6 @@ public class AdminService {
 			slotRepository.save(s);
 
 		}
-		return "Status updated";
+		return "Status updated for "+start+" to "+end+" as "+type;
 	}
 }

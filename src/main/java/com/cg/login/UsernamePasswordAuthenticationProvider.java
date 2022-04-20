@@ -25,15 +25,21 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		String email = authentication.getName();
-		String password = authentication.getCredentials().toString();
-		Person person = personRepository.findByEmail(email).get(0);
-		System.out.println(person.toString());
-		if (null != person && person.getId() > 0 && password.equals(person.getPassword())) {
-			return new UsernamePasswordAuthenticationToken(person.getEmail(), password,
-					getGrantedAuthorities(person.getRole()));
-		} else {
-			System.out.println("Bad Credential or some error");
+		try {
+				String email = authentication.getName();
+				String password = authentication.getCredentials().toString();
+				Person person = personRepository.findByEmail(email).get(0);
+				System.out.println(person.toString());
+				if (null != person && person.getId() > 0 && password.equals(person.getPassword())) {
+					return new UsernamePasswordAuthenticationToken(person.getEmail(), password,
+							getGrantedAuthorities(person.getRole()));
+				} else {
+					System.out.println("Bad Credential or some error");
+					throw new BadCredentialsException("Invalid Credential");
+				}
+		}catch(Exception e)
+		{
+			System.out.println("Login Unsuccessfull!");
 			throw new BadCredentialsException("Invalid Credential");
 		}
 	}

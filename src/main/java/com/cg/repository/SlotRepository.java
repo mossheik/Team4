@@ -27,10 +27,14 @@ public interface SlotRepository extends JpaRepository<Slot,Integer>{
 	@Query("SELECT s FROM Slot s WHERE s.slotStatus = 'VACANT'")
 	public List<Slot> findAllAvailableSlot();
 	
+	//Returns List of 10 Vacant/Available Slots	
+	List<Slot> findTop10ByOrderBySlotNoAsc();
+	
 	//Return Slot as per SlotNo
 	@Query("from Slot slot where slot.slotNo=:slotNumber") 
 	public Slot findBySlotNo(@Param("slotNumber") String slotNumber);
 	
+	//To get Lost Token Count after rerunning application
 	@Query("Select COUNT(*) FROM Slot s where s.slotStatus = 'VACANT'")
 	public int getTotalVacantSlots();
 	

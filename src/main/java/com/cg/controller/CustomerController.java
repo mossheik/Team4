@@ -13,7 +13,7 @@ import com.cg.service.CustomerService;
 
 
 @RestController
-@RequestMapping(path = "/api/")
+@RequestMapping(path = "/api/customer")
 public class CustomerController {
 	
 	@Autowired
@@ -24,7 +24,7 @@ public class CustomerController {
 		return customerService.addCustomer(customer);
 	}
 
-	@GetMapping("/{securityType}/issueToken/{customerId}")
+	@GetMapping("/{securityType}/getToken/{customerId}")
 	public String getToken(@PathVariable("securityType") String securityType,@PathVariable("customerId") int customerId)
 	{
 		if(securityType.equalsIgnoreCase("ENTRY"))
@@ -40,8 +40,8 @@ public class CustomerController {
 		
 	}
 	
-	@GetMapping("/selectSlot/{customerId}/{slotNo}")
-	public String getToken(@PathVariable("customerId") int customerId,@PathVariable("slotNo") String slotNo)
+	@PostMapping("/selectSlot/{customerId}/{slotNo}")
+	public String getSlot(@PathVariable("customerId") int customerId,@PathVariable("slotNo") String slotNo)
 	{
 		return customerService.selectSlot(customerId, slotNo);
 	}
@@ -49,15 +49,15 @@ public class CustomerController {
 	@GetMapping("/{securityType}/verifyParkingSlot/{receiptId}/{slotNo}")
 	public String verifyParkingSlot(@PathVariable("securityType") String securityType,@PathVariable("receiptId") int receiptId,@PathVariable("slotNo") String slotNo)
 	{
-		if(securityType.equalsIgnoreCase("SecondarySecurity"))
+		if(securityType.equalsIgnoreCase("CHECK"))
 		{
 			return customerService.parkAt(receiptId, slotNo);
-		}else if(securityType.equalsIgnoreCase("PrimarySecurity"))
+		}else if(securityType.equalsIgnoreCase("ENTRY"))
 		{
-			return "Only Secondary Security can issue Token!";
+			return "Only CHECK Security can issue Token!";
 		}
 		else {
-			return "Secondary Security is not available!";
+			return "CHECK Security is not available!";
 		}
 	}
 

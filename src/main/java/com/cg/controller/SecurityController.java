@@ -20,9 +20,4 @@ public class SecurityController {
 		return securityService.getTotalTokenCount();
 	}
 
-	@GetMapping("/setAllToken/{totalToken}")
-	public int setTotalToken(@PathVariable("totalToken") int totalToken) {
-		return securityService.setToken(totalToken);
-	}
-
 }

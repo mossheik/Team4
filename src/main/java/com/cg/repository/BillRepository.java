@@ -8,5 +8,5 @@ import com.cg.entity.Bill;
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Integer> {
-
+	
 }

@@ -17,46 +17,47 @@ import com.cg.service.AdminService;
 @RestController
 @RequestMapping(path = "/api/admin")
 public class AdminController {
-	// change @RequestBody to RequestParam for future work
+
 	@Autowired
 	private AdminService adminService;
 	
+	@PostMapping("/addManager")
+	public String addManager(@RequestBody Manager manager) {
+		return adminService.addManager(manager);
+	}
+
+	@DeleteMapping("/delManager/{managerId}")
+	public String removeManager(@PathVariable("managerId") int managerId){
+		return adminService.removeManager(managerId);
+	}
 	
 	@PostMapping("/addSecurity")
-	public String addSecurity(@RequestBody Security sec) {
-		return adminService.addSecurity(sec);
+	public String addSecurity(@RequestBody Security security) {
+		return adminService.addSecurity(security);
 	}
 
-	@GetMapping("/delSecurity/{securityId}")
-	public String removeSecurity(@PathVariable("securityId") int id){
-		return adminService.removeSecurity(id);
-	}
-
-	@PostMapping("/addManager")
-	public String addManager(@RequestBody Manager man) {
-		return adminService.addManager(man);
-	}
-
-	@GetMapping("/delManager/{id}")
-	public String removeManager(@PathVariable("id") int id){
-		return adminService.removeManager(id);
+	@DeleteMapping("/delSecurity/{securityId}")
+	public String removeSecurity(@PathVariable("securityId") int securityId){
+		return adminService.removeSecurity(securityId);
 	}
 	
-	@GetMapping("/addAllSlot/{mode}/{totalSlotCount}/{type}")
-	public String addParking(@PathVariable("mode") String mode,@PathVariable("totalSlotCount") int totalSlotCount,@PathVariable("type") String type){
-	return adminService.addSlot(totalSlotCount,type,mode);
+	@PostMapping("/addSlot/{mode}/{totalSlots}/{slotStatus}")
+	public String addParking(@PathVariable("mode") String mode,@PathVariable("totalSlots") int totalSlots,@PathVariable("slotStatus") String slotStatus){
+	return adminService.addSlot(totalSlots,slotStatus,mode);
 	}
 	
-	@DeleteMapping("/deleteSlot/{decr}/{start}")
-	public String removeSlot(@PathVariable("decr") int decr,@PathVariable("start") String start){
-		return adminService.removeSlot(decr, start);
+	@DeleteMapping("/deleteSlot/{startFromSlotNo}/{totalDelCount}")
+	public String removeSlot(@PathVariable("totalDelSlotCount") int totalDelSlotCount,@PathVariable("startSlotNo") String startSlotNo){
+		return adminService.removeSlot(totalDelSlotCount, startSlotNo);
 	}
-	@PutMapping("/update/{slotNo}/{type}")
-	public String update(@PathVariable("slotNo") String slotNo,@PathVariable("type") String type ) {
-		return adminService.updateSlot(slotNo,type);
+	
+	@PutMapping("/updateSlotStatus/{slotNo}/{updatedStatus}")
+	public String update(@PathVariable("slotNo") String slotNo,@PathVariable("type") String updatedStatus ) {
+		return adminService.updateSlot(slotNo,updatedStatus);
 	}
-	@PutMapping("/rangeChange/{start}/{end}/{type}")
-	public String rangechangeSlot(@PathVariable("start") String start,@PathVariable("end") String end, @PathVariable("type") String type ) {
-		return adminService.rangeChangeStatusSlot(start, end, type);
+	
+	@PutMapping("/rangeUpdateSlotStatus/{startSlotNo}/{endSlotNo}/{updatedStatus}")
+	public String rangechangeSlot(@PathVariable("startSlotNo") String startSlotNo,@PathVariable("endSlotNo") String endSlotNo, @PathVariable("updatedStatus") String updatedStatus ) {
+		return adminService.rangeChangeStatusSlot(startSlotNo, endSlotNo, updatedStatus);
 	}
 }

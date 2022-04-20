@@ -2,6 +2,7 @@ package com.cg.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,9 +29,6 @@ public class Bill {
 	@Column(name = "exitTime")
 	private LocalTime exitTime;
 	
-	@Column(name = "totalDuration")
-	private long totalDuration;
-	
 	@Column(name = "slotNo")
 	private String slotNo;
 	
@@ -45,14 +43,13 @@ public class Bill {
 		super();
 	}
 
-	public Bill(int billId, LocalDate date, LocalTime entryTime, LocalTime exitTime, long totalDuration, String slotNo,
-			double amount, Customer customer) {
+	public Bill(int billId, LocalDate date, LocalTime entryTime, LocalTime exitTime, String slotNo, double amount,
+			Customer customer) {
 		super();
 		this.billId = billId;
 		this.date = date;
 		this.entryTime = entryTime;
 		this.exitTime = exitTime;
-		this.totalDuration = totalDuration;
 		this.slotNo = slotNo;
 		this.amount = amount;
 		this.customer = customer;
@@ -90,14 +87,6 @@ public class Bill {
 		this.exitTime = exitTime;
 	}
 
-	public long getTotalDuration() {
-		return totalDuration;
-	}
-
-	public void setTotalDuration(long totalDuration) {
-		this.totalDuration = totalDuration;
-	}
-
 	public String getSlotNo() {
 		return slotNo;
 	}
@@ -125,9 +114,29 @@ public class Bill {
 	@Override
 	public String toString() {
 		return "Bill [billId=" + billId + ", date=" + date + ", entryTime=" + entryTime + ", exitTime=" + exitTime
-				+ ", totalDuration=" + totalDuration + ", slotNo=" + slotNo + ", amount=" + amount + ", customer="
-				+ customer + "]";
+				+ ", slotNo=" + slotNo + ", amount=" + amount + ", customer=" + customer + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(amount, billId, customer, date, entryTime, exitTime, slotNo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Bill other = (Bill) obj;
+		return Double.doubleToLongBits(amount) == Double.doubleToLongBits(other.amount) && billId == other.billId
+				&& Objects.equals(customer, other.customer) && Objects.equals(date, other.date)
+				&& Objects.equals(entryTime, other.entryTime) && Objects.equals(exitTime, other.exitTime)
+				&& Objects.equals(slotNo, other.slotNo);
+	}
+
+	
 
 }
