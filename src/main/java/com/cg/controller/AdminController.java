@@ -46,14 +46,14 @@ public class AdminController {
 		return adminService.addSlot(totalSlots, slotStatus, mode);
 	}
 
-	@DeleteMapping("/deleteSlot/{startFromSlotNo}/{totalDelCount}")
+	@DeleteMapping("/deleteSlot/{startFromSlotNo}/{totalDelSlotCount}")
 	public String removeSlot(@PathVariable("totalDelSlotCount") int totalDelSlotCount,
-			@PathVariable("startSlotNo") String startSlotNo) {
-		return adminService.removeSlot(totalDelSlotCount, startSlotNo);
+			@PathVariable("startFromSlotNo") String startFromSlotNo) {
+		return adminService.removeSlot(totalDelSlotCount, startFromSlotNo);
 	}
 
 	@PutMapping("/updateSlotStatus/{slotNo}/{updatedStatus}")
-	public String update(@PathVariable("slotNo") String slotNo, @PathVariable("type") String updatedStatus) {
+	public String update(@PathVariable("slotNo") String slotNo, @PathVariable("updatedStatus") String updatedStatus) {
 		return adminService.updateSlot(slotNo, updatedStatus);
 	}
 

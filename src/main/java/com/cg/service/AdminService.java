@@ -132,6 +132,7 @@ public class AdminService {
 
 		// Updating Token Count
 		Token.setTokenCount(Token.getTokenCount() - decr);
+		
 		char l = slotPos.charAt(0);
 		String ls = slotPos.substring(1);
 		int lst = Integer.parseInt(ls);
@@ -159,6 +160,17 @@ public class AdminService {
 
 	// For Updating Type at any slot Position
 	public String updateSlot(String slotPos, String status) {
+		
+		if(status.equals("VACANT"))
+		{
+			// Updating Token Count
+			Token.setTokenCount(Token.getTokenCount() + 1);
+		}else
+		{
+			// Updating Token Count
+			Token.setTokenCount(Token.getTokenCount() - 1);
+		}
+		
 		Slot s = new Slot();
 		// Setting Updated Details
 		s.setSlotNo(slotPos);
@@ -170,6 +182,7 @@ public class AdminService {
 	// Updating Slot Type for a Given Range
 	public String rangeChangeStatusSlot(String start, String end, String type) {
 
+		
 		Slot s = new Slot();
 		// Extracting start string
 		char ch1 = start.charAt(0); // A,B,C
@@ -182,6 +195,18 @@ public class AdminService {
 		String str2 = end.substring(1);
 		int val3 = Integer.parseInt(str2);
 
+		if(type.equals("VACANT"))
+		{
+			int decr=val3-count;
+			// Updating Token Count
+			Token.setTokenCount(Token.getTokenCount() + decr);
+		}else
+		{
+			int decr=val3-count;
+			// Updating Token Count
+			Token.setTokenCount(Token.getTokenCount() - decr);
+		}
+		
 		// Setting Updated Slot Status and save Slot
 		for (int i = val1; i <= val3; i++) {
 

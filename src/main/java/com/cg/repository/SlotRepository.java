@@ -28,6 +28,7 @@ public interface SlotRepository extends JpaRepository<Slot, Integer> {
 	public List<Slot> findAllAvailableSlot();
 
 	// Returns List of 10 Vacant/Available Slots
+	@Query("SELECT s FROM Slot s WHERE s.slotStatus = 'VACANT'")
 	List<Slot> findTop10ByOrderBySlotNoAsc();
 
 	// Return Slot as per SlotNo
