@@ -68,6 +68,7 @@ public class AdminService {
 
 		// Generating Token as per Slots
 		Token.setTokenCount(Token.getTokenCount() + totalSlot);
+		
 		// Creating Slots
 		if (mode.equalsIgnoreCase("create")) {
 			char var = 'A';
@@ -129,9 +130,6 @@ public class AdminService {
 
 	// Remove Slot
 	public String removeSlot(int decr, String slotPos) {
-
-		// Updating Token Count
-		Token.setTokenCount(Token.getTokenCount() - decr);
 		
 		char l = slotPos.charAt(0);
 		String ls = slotPos.substring(1);
@@ -155,27 +153,24 @@ public class AdminService {
 			c++;
 		}
 
+		// Updating Token Count
+		Token.setTokenCount(slotRepository.getTotalVacantSlots());
+				
 		return decr + " Slots Removed Successfully";
 	}
 
 	// For Updating Type at any slot Position
 	public String updateSlot(String slotPos, String status) {
 		
-		if(status.equals("VACANT"))
-		{
-			// Updating Token Count
-			Token.setTokenCount(Token.getTokenCount() + 1);
-		}else
-		{
-			// Updating Token Count
-			Token.setTokenCount(Token.getTokenCount() - 1);
-		}
-		
 		Slot s = new Slot();
 		// Setting Updated Details
 		s.setSlotNo(slotPos);
 		s.setSlotStatus(status);
 		slotRepository.save(s);
+		
+		// Updating Token Count
+		Token.setTokenCount(slotRepository.getTotalVacantSlots());
+		
 		return slotPos + " is Update Successfully to " + status;
 	}
 
@@ -194,18 +189,6 @@ public class AdminService {
 		// Extracting end string
 		String str2 = end.substring(1);
 		int val3 = Integer.parseInt(str2);
-
-		if(type.equals("VACANT"))
-		{
-			int decr=val3-count;
-			// Updating Token Count
-			Token.setTokenCount(Token.getTokenCount() + decr);
-		}else
-		{
-			int decr=val3-count;
-			// Updating Token Count
-			Token.setTokenCount(Token.getTokenCount() - decr);
-		}
 		
 		// Setting Updated Slot Status and save Slot
 		for (int i = val1; i <= val3; i++) {
@@ -225,6 +208,10 @@ public class AdminService {
 			s.setSlotStatus(type);
 			slotRepository.save(s);
 		}
+		
+		// Updating Token Count
+		Token.setTokenCount(slotRepository.getTotalVacantSlots());
+		
 		return "Status updated for " + start + " to " + end + " as " + type;
 	}
 }
