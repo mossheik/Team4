@@ -1,11 +1,10 @@
 package com.cg;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cg.entity.Bill;
 import com.cg.entity.Token;
@@ -13,7 +12,7 @@ import com.cg.service.SecurityService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class TestService {
+class TestSecurity {
 
 	@Test
 	void testGetTotalTokenCount() {

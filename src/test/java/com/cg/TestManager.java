@@ -44,6 +44,9 @@ class TestManager {
 
 	@MockBean
 	private CustomerRepository customerRepository;
+	
+	@MockBean
+	private BillRepository billRepository;
 
 	@Test
 	void getAllParkingSlots() {
@@ -110,51 +113,51 @@ class TestManager {
 		assertEquals(s1, managerService.showNearestTenParkingSlots());
 	}
 
-//	@Test
-//	void generateReceipt() {
-//		Customer customer = new Customer();
-//		customer.setCustomerId(1);
-//		customer.setName("Kaumudi");
-//		customer.setVehicleNumber("UP12AD1990");
-//		customer.setPhoneNumber("9876543210");
-//		customer.setHasToken(true);
-//		customer.setSlotNo("A01");
-//		Bill receipt = new Bill();
-//		billRepository.saveAndFlush(receipt);
-//		customer.setBill(receipt);
-//		receipt.setCustomer(customer);
-//		customerRepository.saveAndFlush(customer);
-//		when(customerRepository.existsById(1)).thenReturn(true);
-//		when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
-//		assertEquals("Receipt Generated for Customer Id : 1", managerService.generateReceipt(1));
-//	}
-//
-//	@Test
-//	void generateBill() {
-//		Customer customer = new Customer();
-//		customer.setCustomerId(1);
-//		customer.setName("Kaumudi");
-//		customer.setVehicleNumber("UP12AD1990");
-//		customer.setPhoneNumber("9876543210");
-//		customer.setHasToken(true);
-//		customer.setSlotNo("A01");
-//		Bill bill = new Bill();
-//		bill.setBillId(1);
-//		bill.setEntryTime(LocalTime.now());
-//		bill.setSlotNo("A01");
-//		billRepository.save(bill);
-//		customer.setBill(bill);
-//		bill.setCustomer(customer);
-//		customerRepository.save(customer);
-//
-//		// when(slotRepository.save(slot)).thenReturn(slot);
-//		// when(slotRepository.findBySlotNo("A01")).thenReturn(slot);
-//		when(customerRepository.existsById(1)).thenReturn(true);
-//		when(billRepository.save(bill)).thenReturn(bill);
-//		when(billRepository.existsById(1)).thenReturn(true);
-//		when(billRepository.findById(1)).thenReturn(Optional.of(bill));
-//		when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
-//		assertEquals("Bill generated for Customer Id : 1", managerService.generateBill(1));
-//
-//	}
+	@Test
+	void generateReceipt() {
+		Customer customer = new Customer();
+		customer.setCustomerId(1);
+		customer.setName("Kaumudi");
+		customer.setVehicleNumber("UP12AD1990");
+		customer.setPhoneNumber("9876543210");
+		customer.setHasToken(true);
+		customer.setSlotNo("A01");
+		Bill receipt = new Bill();
+		billRepository.saveAndFlush(receipt);
+		customer.setBill(receipt);
+		receipt.setCustomer(customer);
+		customerRepository.saveAndFlush(customer);
+		when(customerRepository.existsById(1)).thenReturn(true);
+		when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
+		assertEquals("Receipt Generated for Customer Id : 1", managerService.generateReceipt(1));
+	}
+
+	@Test
+	void generateBill() {
+		Customer customer = new Customer();
+		customer.setCustomerId(1);
+		customer.setName("Kaumudi");
+		customer.setVehicleNumber("UP12AD1990");
+		customer.setPhoneNumber("9876543210");
+		customer.setHasToken(true);
+		customer.setSlotNo("A01");
+		Bill bill = new Bill();
+		bill.setBillId(1);
+		bill.setEntryTime(LocalTime.now());
+		bill.setSlotNo("A01");
+		billRepository.save(bill);
+		customer.setBill(bill);
+		bill.setCustomer(customer);
+		customerRepository.save(customer);
+
+		// when(slotRepository.save(slot)).thenReturn(slot);
+		// when(slotRepository.findBySlotNo("A01")).thenReturn(slot);
+		when(customerRepository.existsById(1)).thenReturn(true);
+		when(billRepository.save(bill)).thenReturn(bill);
+		when(billRepository.existsById(1)).thenReturn(true);
+		when(billRepository.findById(1)).thenReturn(Optional.of(bill));
+		when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
+		assertEquals("Bill generated for Customer Id : 1", managerService.generateBill(1));
+
+	}
 }
