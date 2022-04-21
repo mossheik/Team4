@@ -14,12 +14,14 @@ import com.cg.service.SecurityService;
 @SpringBootTest
 class TestSecurity {
 
+	//Check for Correct token Count
 	@Test
 	void testGetTotalTokenCount() {
 		Token.setTokenCount(100);
 		assertEquals(100, Token.getTokenCount());
 	}
 
+	//Check token is issued if available
 	@Test
 	void testIssueToken() {
 		Token.setTokenCount(10);
@@ -29,6 +31,7 @@ class TestSecurity {
 		assertEquals(false, securityservice.issueToken());
 	}
 
+	//Verify Customer has parkedAt correct slot or not
 	@Test
 	void testVerifySlot() {
 		Bill receipt = new Bill();
@@ -40,6 +43,7 @@ class TestSecurity {
 		assertEquals(false, ans);
 	}
 
+	//check set count
 	@Test
 	void testSetToken() {
 		Token.setTokenCount(101);

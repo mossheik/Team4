@@ -40,6 +40,7 @@ class TestAdmin {
 	@Test
 	void addSecurity() {
 		Security security = new Security("Aditya", "Maurya", "9876543210", "Mumbai", SecurityType.ENTRY);
+		security.setPassword("1234");
 		when(securityrepository.save(security)).thenReturn(security);
 		assertEquals("Security Added Successfully!", adminService.addSecurity(security));
 	}
@@ -55,6 +56,7 @@ class TestAdmin {
 	@Test
 	void addManager() {
 		Manager manager = new Manager("Mosin", "Sheikh", "Mumbai", "9877889900");
+		manager.setPassword("1234");
 		when(managerrepository.save(manager)).thenReturn(manager);
 		assertEquals("Manager Added Successfully!", adminService.addManager(manager));
 	}

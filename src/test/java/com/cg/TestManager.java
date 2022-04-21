@@ -3,8 +3,6 @@ package com.cg;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +18,7 @@ import com.cg.entity.Bill;
 import com.cg.entity.Customer;
 import com.cg.entity.Slot;
 import com.cg.entity.SlotStatus;
+import com.cg.repository.BillRepository;
 import com.cg.repository.CustomerRepository;
 import com.cg.repository.ManagerRepository;
 import com.cg.repository.SlotRepository;
@@ -33,8 +32,6 @@ class TestManager {
 	@Autowired
 	private ManagerService managerService;
 
-	@Autowired
-	private CustomerService customerService;
 
 	@MockBean
 	private ManagerRepository managerrepository;
@@ -48,6 +45,7 @@ class TestManager {
 	@MockBean
 	private BillRepository billRepository;
 
+	//Check all Added Parking Slots
 	@Test
 	void getAllParkingSlots() {
 		Slot slot1 = new Slot("A01", SlotStatus.VACANT);
@@ -60,6 +58,7 @@ class TestManager {
 		assertEquals((List<Slot>) s, managerService.getAllParkingSlots());
 	}
 
+	//Check All available Parking slot
 	@Test
 	void showAvailableParkingSlots() {
 		Slot slot1 = new Slot("A01", SlotStatus.VACANT);
@@ -72,6 +71,88 @@ class TestManager {
 		assertEquals((List<Slot>) s, managerService.showAvailableParkingSlots());
 	}
 
+	
+	//Check Generate Receipt
+	@Test
+	void generateReceipt() {
+		Customer customer = new Customer();
+		customer.setCustomerId(1);
+		customer.setName("Rohit");
+		customer.setVehicleNumber("UP12AD1990");
+		customer.setPhoneNumber("9876543210");
+		customer.setHasToken(true);
+		customer.setSlotNo("A01");
+		Bill receipt = new Bill();
+		billRepository.saveAndFlush(receipt);
+		customer.setBill(receipt);
+		receipt.setCustomer(customer);
+		customerRepository.saveAndFlush(customer);
+		when(customerRepository.existsById(1)).thenReturn(true);
+		when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
+		assertEquals("Receipt Generated for Customer Id : 1", managerService.generateReceipt(1));
+	}
+	
+	//Check Generate Receipt for wrong customer Id
+	@Test
+	void generateReceipt2() {
+		Customer customer = new Customer();
+		customer.setCustomerId(1);
+		customer.setName("Rohit");
+		customer.setVehicleNumber("UP12AD1990");
+		customer.setPhoneNumber("9876543210");
+		customer.setHasToken(true);
+		customer.setSlotNo("A01");
+		Bill receipt = new Bill();
+		billRepository.saveAndFlush(receipt);
+		customer.setBill(receipt);
+		receipt.setCustomer(customer);
+		customerRepository.saveAndFlush(customer);
+		when(customerRepository.existsById(1)).thenReturn(true);
+		when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
+		assertEquals("Customer Id is wrong or Customer Does not Exists!", managerService.generateReceipt(2));
+	}
+	
+	//Check Generate Receipt for Slot not selected Customer
+	@Test
+	void generateReceipt3() {
+		Customer customer = new Customer();
+		customer.setCustomerId(1);
+		customer.setName("Rohit");
+		customer.setVehicleNumber("UP12AD1990");
+		customer.setPhoneNumber("9876543210");
+		customer.setHasToken(true);
+		Bill receipt = new Bill();
+		billRepository.saveAndFlush(receipt);
+		customer.setBill(receipt);
+		receipt.setCustomer(customer);
+		customerRepository.saveAndFlush(customer);
+		when(customerRepository.existsById(1)).thenReturn(true);
+		when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
+		assertEquals("Please! Choose Slot First to generate Receipt", managerService.generateReceipt(1));
+	}
+
+	//Check Generate receipt for not generated receipt id
+	@Test
+	void generateBill() {
+		Customer customer = new Customer();
+		customer.setCustomerId(1);
+		customer.setName("Rohit");
+		customer.setVehicleNumber("UP12AD1990");
+		customer.setPhoneNumber("9876543210");
+		customer.setHasToken(true);
+		customer.setSlotNo("A01");
+		
+		Bill bill = new Bill();
+		billRepository.save(bill);
+		customer.setBill(bill);
+		bill.setCustomer(customer);
+		customerRepository.save(customer);
+
+		assertEquals("You have not Generated Receipt or Entered Bill Id is Wrong!", managerService.generateBill(1));
+
+	}
+	
+	//Check nearest top ten available slots
 	@Test
 	void showTopTenAvailableParkingSlots() {
 		Slot slot1 = new Slot("A01", SlotStatus.VACANT);
@@ -111,53 +192,5 @@ class TestManager {
 		s1.add(new Slot("A10", SlotStatus.VACANT));
 		when(slotRepository.findTop10ByOrderBySlotNoAsc()).thenReturn((List<Slot>) s1);
 		assertEquals(s1, managerService.showNearestTenParkingSlots());
-	}
-
-	@Test
-	void generateReceipt() {
-		Customer customer = new Customer();
-		customer.setCustomerId(1);
-		customer.setName("Kaumudi");
-		customer.setVehicleNumber("UP12AD1990");
-		customer.setPhoneNumber("9876543210");
-		customer.setHasToken(true);
-		customer.setSlotNo("A01");
-		Bill receipt = new Bill();
-		billRepository.saveAndFlush(receipt);
-		customer.setBill(receipt);
-		receipt.setCustomer(customer);
-		customerRepository.saveAndFlush(customer);
-		when(customerRepository.existsById(1)).thenReturn(true);
-		when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
-		assertEquals("Receipt Generated for Customer Id : 1", managerService.generateReceipt(1));
-	}
-
-	@Test
-	void generateBill() {
-		Customer customer = new Customer();
-		customer.setCustomerId(1);
-		customer.setName("Kaumudi");
-		customer.setVehicleNumber("UP12AD1990");
-		customer.setPhoneNumber("9876543210");
-		customer.setHasToken(true);
-		customer.setSlotNo("A01");
-		Bill bill = new Bill();
-		bill.setBillId(1);
-		bill.setEntryTime(LocalTime.now());
-		bill.setSlotNo("A01");
-		billRepository.save(bill);
-		customer.setBill(bill);
-		bill.setCustomer(customer);
-		customerRepository.save(customer);
-
-		// when(slotRepository.save(slot)).thenReturn(slot);
-		// when(slotRepository.findBySlotNo("A01")).thenReturn(slot);
-		when(customerRepository.existsById(1)).thenReturn(true);
-		when(billRepository.save(bill)).thenReturn(bill);
-		when(billRepository.existsById(1)).thenReturn(true);
-		when(billRepository.findById(1)).thenReturn(Optional.of(bill));
-		when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
-		assertEquals("Bill generated for Customer Id : 1", managerService.generateBill(1));
-
 	}
 }

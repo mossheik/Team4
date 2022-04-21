@@ -27,6 +27,7 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	// Authenticating and returns fully authenticated object including credentials.
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String email = authentication.getName();
