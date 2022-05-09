@@ -4,14 +4,14 @@
 ----------------------------------
 Receipt Details
 ----------------------------------
-Receipt Id : 9
-Date : 2022-04-19
+Receipt Id : 6
+Date : 2022-05-09
 ----------------------------------
 Customer Details
 ----------------------------------
-Customer Id : 5
-Name : Dilraj
-Phone Number : 984594857
-Vehicle Number : MH31 AJ8768
-Parking Position : A11
-Entry Time : 23:40:55
+Customer Id : 2
+Name : Soham
+Phone Number : 9768764857
+Vehicle Number : MH50 AZ6768
+Parking Position : A02
+Entry Time : 14:56:35

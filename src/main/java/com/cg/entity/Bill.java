@@ -115,4 +115,5 @@ public class Bill {
 		return "Bill [billId=" + billId + ", date=" + date + ", entryTime=" + entryTime + ", exitTime=" + exitTime
 				+ ", slotNo=" + slotNo + ", amount=" + amount + ", customer=" + customer + "]";
 	}
+
 }
