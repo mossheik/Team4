@@ -1,5 +1,6 @@
 package com.cg.service;
 
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +31,17 @@ public class CustomerService {
 	}
 
 	// Add Customer
-	public String addCustomer(Customer customer) {
+	
+	public String addCustomer(Customer customer){
+		try{
 		customerRepository.save(customer);
+		}catch(Exception pe)
+		{
+			return "Customer Already Exists!";
+		}
 		return "Customer Added Successfully!";
 	}
-
+	
 	// Get for Token from Primary Security
 	public String getToken(int customerId) {
 		if (customerRepository.existsById(customerId)) {
@@ -116,7 +123,7 @@ public class CustomerService {
 		if (securityService.verifySlot(receiptId, parkedSlotNo)) {
 			return "Parked At Correct Slot";
 		} else {
-			return "Parked at Wrong Slot";
+			return "Parked at Wrong Slot or Entered Bill Id is Wrong!";
 		}
 	}
 

@@ -1,5 +1,7 @@
 package com.cg.service;
 
+import java.util.NoSuchElementException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +49,10 @@ public class SecurityService extends Token {
 			if (receipt.getSlotNo().equalsIgnoreCase(slotParked)) {
 				return true;
 			}
-		} catch (NullPointerException e) {
+		} catch (NullPointerException | NoSuchElementException e) {
 			Logger log = LoggerFactory.getLogger(SecurityService.class);
 			log.error("Null pointer exception thrown " + receiptId);
+			return false;
 		}
 		return false;
 	}

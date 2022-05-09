@@ -8,4 +8,7 @@ import com.cg.entity.Bill;
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Integer> {
 
+	public Bill findByCustomerCustomerId(int id);
+	public boolean existsByCustomerCustomerId(int id);
+
 }
