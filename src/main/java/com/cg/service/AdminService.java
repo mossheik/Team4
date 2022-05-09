@@ -163,15 +163,21 @@ public class AdminService {
 	public String updateSlot(String slotPos, String status) {
 		
 		Slot s = new Slot();
-		// Setting Updated Details
-		s.setSlotNo(slotPos);
-		s.setSlotStatus(status);
-		slotRepository.save(s);
-		
-		// Updating Token Count
-		Token.setTokenCount(slotRepository.getTotalVacantSlots());
-		
-		return slotPos + " is Update Successfully to " + status;
+		  s = slotRepository.findBySlotNo(slotPos);
+		  if(s!=null){
+		   // Setting Updated Details
+		   s.setSlotNo(slotPos);
+		   s.setSlotStatus(status);
+		   slotRepository.save(s);
+		   
+		   // Updating Token Count
+		   Token.setTokenCount(slotRepository.getTotalVacantSlots());
+		   
+		   return slotPos + " is Update Successfully to " + status;
+		  }
+		  else {
+		   return "Slot has been deleted...Kindly Enter the correct slot";
+		  }
 	}
 
 	// Updating Slot Type for a Given Range
