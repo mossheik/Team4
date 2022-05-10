@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: 'postgres:latest'
+    container_name: postgres_container
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: car_database
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: api
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/car_database
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_USERNAME: postgres
+    ports:
+      - '55544:55544'
+    depends_on:
+      - db
