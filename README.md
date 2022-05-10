@@ -5,3 +5,7 @@ CarParkingSystem
 - The project uses port 9117.
 - Also the default port for postgres is used 5432.
 - Change the properties file if requirement arise.
+
+
+## Docker
+docker-compose up
